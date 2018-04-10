@@ -34,7 +34,30 @@ SKIP :
 | "\r"
 | "\t"
 | "\n"
+}
 
+//comentário de bloco
+SKIP : 
+{ 
+ "/*" : multilinecomment
+}
+
+<multilinecomment> SKIP :
+{ 
+ "*/" : DEFAULT
+| <~[]>
+}
+
+//comentário de linha
+SKIP : 
+{ 
+ "//" : singlelinecomment
+}
+
+<singlelinecomment> SKIP :
+{ 
+ <["\n","\r"]> : DEFAULT
+| <~[]>
 }
 
 TOKEN : /* OPERATORS */
@@ -102,6 +125,38 @@ TOKEN : {
 }
 
 //COLOCAR OS TOKENS DE CONSTANT
+
+//TOKEN P/ LANÇAR ERRO LÉXICO
+SPECIAL_TOKEN : {
+<INVALID_LEXICAL:
+(~["a"-"z", "A"-"Z",
+   "0"-"9",
+   "\"",
+	"(",
+	")",
+	"[",
+	"]",
+	"{",
+	"}",
+	"<",
+	">",
+	"=",
+	";",
+	",",
+	"!",
+	"+",
+	"-",
+	"*",
+	"/",
+	"%",
+	" ",
+	"\t",
+	"\n",
+	"\r",
+	"\f"])+>
+}
+   
+     
 
 void program() :
 {}

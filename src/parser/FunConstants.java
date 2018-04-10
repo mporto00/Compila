@@ -11,110 +11,116 @@ public interface FunConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int PLUS = 5;
+  int PLUS = 11;
   /** RegularExpression Id. */
-  int MINUS = 6;
+  int MINUS = 12;
   /** RegularExpression Id. */
-  int MULTIPLY = 7;
+  int MULTIPLY = 13;
   /** RegularExpression Id. */
-  int DIVIDE = 8;
+  int DIVIDE = 14;
   /** RegularExpression Id. */
-  int SEMICOLON = 9;
+  int SEMICOLON = 15;
   /** RegularExpression Id. */
-  int COMMA = 10;
+  int COMMA = 16;
   /** RegularExpression Id. */
-  int LPAREN = 11;
+  int LPAREN = 17;
   /** RegularExpression Id. */
-  int RPAREN = 12;
+  int RPAREN = 18;
   /** RegularExpression Id. */
-  int LSQUARE = 13;
+  int LSQUARE = 19;
   /** RegularExpression Id. */
-  int RSQUARE = 14;
+  int RSQUARE = 20;
   /** RegularExpression Id. */
-  int LCURL = 15;
+  int LCURL = 21;
   /** RegularExpression Id. */
-  int RCURL = 16;
+  int RCURL = 22;
   /** RegularExpression Id. */
-  int LANGLE = 17;
+  int LANGLE = 23;
   /** RegularExpression Id. */
-  int RANGLE = 18;
+  int RANGLE = 24;
   /** RegularExpression Id. */
-  int EQUALTO = 19;
+  int EQUALTO = 25;
   /** RegularExpression Id. */
-  int EQUALTO_EQUALTO = 20;
+  int EQUALTO_EQUALTO = 26;
   /** RegularExpression Id. */
-  int LANGLE_EQUALTO = 21;
+  int LANGLE_EQUALTO = 27;
   /** RegularExpression Id. */
-  int RANGLE_EQUALTO = 22;
+  int RANGLE_EQUALTO = 28;
   /** RegularExpression Id. */
-  int BANG_EQUALTO = 23;
+  int BANG_EQUALTO = 29;
   /** RegularExpression Id. */
-  int PIPE_PIPE = 24;
+  int PIPE_PIPE = 30;
   /** RegularExpression Id. */
-  int AMPERSAND_AMPERSAND = 25;
+  int AMPERSAND_AMPERSAND = 31;
   /** RegularExpression Id. */
-  int BANG = 26;
+  int BANG = 32;
   /** RegularExpression Id. */
-  int DOT = 27;
+  int DOT = 33;
   /** RegularExpression Id. */
-  int NOT = 28;
+  int NOT = 34;
   /** RegularExpression Id. */
-  int IF = 29;
+  int IF = 35;
   /** RegularExpression Id. */
-  int END = 30;
+  int END = 36;
   /** RegularExpression Id. */
-  int SUB = 31;
+  int SUB = 37;
   /** RegularExpression Id. */
-  int LET = 32;
+  int LET = 38;
   /** RegularExpression Id. */
-  int CALL = 33;
+  int CALL = 39;
   /** RegularExpression Id. */
-  int THEN = 34;
+  int THEN = 40;
   /** RegularExpression Id. */
-  int CASE = 35;
+  int CASE = 41;
   /** RegularExpression Id. */
-  int ELSE = 36;
+  int ELSE = 42;
   /** RegularExpression Id. */
-  int INPUT = 37;
+  int INPUT = 43;
   /** RegularExpression Id. */
-  int PRINT = 38;
+  int PRINT = 44;
   /** RegularExpression Id. */
-  int SELECT = 39;
+  int SELECT = 45;
   /** RegularExpression Id. */
-  int STATIC = 40;
+  int STATIC = 46;
   /** RegularExpression Id. */
-  int STRING = 41;
+  int STRING = 47;
   /** RegularExpression Id. */
-  int SUPER = 42;
+  int SUPER = 48;
   /** RegularExpression Id. */
-  int RETURN = 43;
+  int RETURN = 49;
   /** RegularExpression Id. */
-  int READ = 44;
+  int READ = 50;
   /** RegularExpression Id. */
-  int NEW = 45;
+  int NEW = 51;
   /** RegularExpression Id. */
-  int INT = 46;
+  int INT = 52;
   /** RegularExpression Id. */
-  int FOR = 47;
+  int FOR = 53;
   /** RegularExpression Id. */
-  int EXTENDS = 48;
+  int EXTENDS = 54;
   /** RegularExpression Id. */
-  int CONSTRUCTOR = 49;
+  int CONSTRUCTOR = 55;
   /** RegularExpression Id. */
-  int CLASS = 50;
+  int CLASS = 56;
   /** RegularExpression Id. */
-  int BREAK = 51;
+  int BREAK = 57;
   /** RegularExpression Id. */
-  int DIGIT = 52;
+  int DIGIT = 58;
   /** RegularExpression Id. */
-  int CONSTANT = 53;
+  int CONSTANT = 59;
   /** RegularExpression Id. */
-  int IDENTIFIER = 54;
+  int IDENTIFIER = 60;
   /** RegularExpression Id. */
-  int LETTER = 55;
+  int LETTER = 61;
+  /** RegularExpression Id. */
+  int INVALID_LEXICAL = 62;
 
   /** Lexical state. */
   int DEFAULT = 0;
+  /** Lexical state. */
+  int multilinecomment = 1;
+  /** Lexical state. */
+  int singlelinecomment = 2;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -123,6 +129,12 @@ public interface FunConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"\\n\"",
+    "\"/*\"",
+    "\"*/\"",
+    "<token of kind 7>",
+    "\"//\"",
+    "<token of kind 9>",
+    "<token of kind 10>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
@@ -174,6 +186,7 @@ public interface FunConstants {
     "<CONSTANT>",
     "<IDENTIFIER>",
     "<LETTER>",
+    "<INVALID_LEXICAL>",
   };
 
 }
