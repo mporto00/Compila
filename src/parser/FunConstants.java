@@ -19,9 +19,99 @@ public interface FunConstants {
   /** RegularExpression Id. */
   int DIVIDE = 8;
   /** RegularExpression Id. */
-  int CONSTANT = 9;
+  int SEMICOLON = 9;
   /** RegularExpression Id. */
-  int DIGIT = 10;
+  int COMMA = 10;
+  /** RegularExpression Id. */
+  int LPAREN = 11;
+  /** RegularExpression Id. */
+  int RPAREN = 12;
+  /** RegularExpression Id. */
+  int LSQUARE = 13;
+  /** RegularExpression Id. */
+  int RSQUARE = 14;
+  /** RegularExpression Id. */
+  int LCURL = 15;
+  /** RegularExpression Id. */
+  int RCURL = 16;
+  /** RegularExpression Id. */
+  int LANGLE = 17;
+  /** RegularExpression Id. */
+  int RANGLE = 18;
+  /** RegularExpression Id. */
+  int EQUALTO = 19;
+  /** RegularExpression Id. */
+  int EQUALTO_EQUALTO = 20;
+  /** RegularExpression Id. */
+  int LANGLE_EQUALTO = 21;
+  /** RegularExpression Id. */
+  int RANGLE_EQUALTO = 22;
+  /** RegularExpression Id. */
+  int BANG_EQUALTO = 23;
+  /** RegularExpression Id. */
+  int PIPE_PIPE = 24;
+  /** RegularExpression Id. */
+  int AMPERSAND_AMPERSAND = 25;
+  /** RegularExpression Id. */
+  int BANG = 26;
+  /** RegularExpression Id. */
+  int DOT = 27;
+  /** RegularExpression Id. */
+  int NOT = 28;
+  /** RegularExpression Id. */
+  int IF = 29;
+  /** RegularExpression Id. */
+  int END = 30;
+  /** RegularExpression Id. */
+  int SUB = 31;
+  /** RegularExpression Id. */
+  int LET = 32;
+  /** RegularExpression Id. */
+  int CALL = 33;
+  /** RegularExpression Id. */
+  int THEN = 34;
+  /** RegularExpression Id. */
+  int CASE = 35;
+  /** RegularExpression Id. */
+  int ELSE = 36;
+  /** RegularExpression Id. */
+  int INPUT = 37;
+  /** RegularExpression Id. */
+  int PRINT = 38;
+  /** RegularExpression Id. */
+  int SELECT = 39;
+  /** RegularExpression Id. */
+  int STATIC = 40;
+  /** RegularExpression Id. */
+  int STRING = 41;
+  /** RegularExpression Id. */
+  int SUPER = 42;
+  /** RegularExpression Id. */
+  int RETURN = 43;
+  /** RegularExpression Id. */
+  int READ = 44;
+  /** RegularExpression Id. */
+  int NEW = 45;
+  /** RegularExpression Id. */
+  int INT = 46;
+  /** RegularExpression Id. */
+  int FOR = 47;
+  /** RegularExpression Id. */
+  int EXTENDS = 48;
+  /** RegularExpression Id. */
+  int CONSTRUCTOR = 49;
+  /** RegularExpression Id. */
+  int CLASS = 50;
+  /** RegularExpression Id. */
+  int BREAK = 51;
+  /** RegularExpression Id. */
+  int DIGIT = 52;
+  /** RegularExpression Id. */
+  int CONSTANT = 53;
+  /** RegularExpression Id. */
+  int IDENTIFIER = 54;
+  /** RegularExpression Id. */
+  int LETTER = 55;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -37,8 +127,53 @@ public interface FunConstants {
     "\"-\"",
     "\"*\"",
     "\"/\"",
-    "<CONSTANT>",
+    "\";\"",
+    "\",\"",
+    "\"(\"",
+    "\")\"",
+    "\"[\"",
+    "\"]\"",
+    "\"{\"",
+    "\"}\"",
+    "\"<\"",
+    "\">\"",
+    "\"=\"",
+    "\"==\"",
+    "\"<=\"",
+    "\">=\"",
+    "\"!=\"",
+    "\"||\"",
+    "\"&&\"",
+    "\"!\"",
+    "\".\"",
+    "\"not\"",
+    "\"if\"",
+    "\"end\"",
+    "\"sub\"",
+    "\"let\"",
+    "\"call\"",
+    "\"then\"",
+    "\"case\"",
+    "\"else\"",
+    "\"input\"",
+    "\"print\"",
+    "\"select\"",
+    "\"static\"",
+    "\"string\"",
+    "\"super\"",
+    "\"return\"",
+    "\"read\"",
+    "\"new\"",
+    "\"int\"",
+    "\"for\"",
+    "\"extends\"",
+    "\"constructor\"",
+    "\"class\"",
+    "\"break\"",
     "<DIGIT>",
+    "<CONSTANT>",
+    "<IDENTIFIER>",
+    "<LETTER>",
   };
 
 }

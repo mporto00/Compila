@@ -34,6 +34,7 @@ SKIP :
 | "\r"
 | "\t"
 | "\n"
+
 }
 
 TOKEN : /* OPERATORS */
@@ -42,13 +43,65 @@ TOKEN : /* OPERATORS */
 | < MINUS : "-" >
 | < MULTIPLY : "*" >
 | < DIVIDE : "/" >
+| < SEMICOLON : ";" >
+| < COMMA : "," >
+| < LPAREN : "(" >
+| < RPAREN : ")" >
+| < LSQUARE : "[" >
+| < RSQUARE : "]" >
+| < LCURL : "{" >
+| < RCURL : "}" >
+| < LANGLE : "<" >
+| < RANGLE : ">" >
+| < EQUALTO : "=" >
+| < EQUALTO_EQUALTO : "==" >
+| < LANGLE_EQUALTO : "<=" >
+| < RANGLE_EQUALTO : ">=" >
+| < BANG_EQUALTO : "!=" >
+| < PIPE_PIPE : "||" >
+| < AMPERSAND_AMPERSAND : "&&" >
+| < BANG : "!" >
+| < DOT : "." >
 }
 
-TOKEN :
-{
-  < CONSTANT : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
+//RESERVED WORDS
+TOKEN : {
+ <NOT: "not">
+| <IF: "if">
+| <END: "end">
+| <SUB: "sub">
+| <LET: "let">
+| <CALL: "call">
+| <THEN: "then">
+| <CASE: "case">
+| <ELSE: "else">
+| <INPUT: "input">
+| <PRINT: "print">
+| <SELECT: "select">
+| <STATIC: "static">
+| <STRING: "string">
+| <SUPER: "super">
+| <RETURN: "return">
+| <READ: "read">
+| <NEW: "new">
+| <INT: "int">
+| <FOR: "for">
+| <EXTENDS: "extends">
+| <CONSTRUCTOR: "constructor">
+| <CLASS: "class">
+| <BREAK: "break">
+
 }
+
+//IDENTIFIER TOKEN
+TOKEN : {
+  < #DIGIT : [ "0"-"9" ] >
+| < CONSTANT : (< DIGIT >)+ >
+| <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
+| <#LETTER: (["a"-"z","A"-"Z"])>
+}
+
+//COLOCAR OS TOKENS DE CONSTANT
 
 void program() :
 {}
