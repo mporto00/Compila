@@ -11,109 +11,117 @@ public interface FunConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int PLUS = 11;
+  int PLUS = 12;
   /** RegularExpression Id. */
-  int MINUS = 12;
+  int MINUS = 13;
   /** RegularExpression Id. */
-  int MULTIPLY = 13;
+  int MULTIPLY = 14;
   /** RegularExpression Id. */
-  int DIVIDE = 14;
+  int DIVIDE = 15;
   /** RegularExpression Id. */
-  int SEMICOLON = 15;
+  int SEMICOLON = 16;
   /** RegularExpression Id. */
-  int COMMA = 16;
+  int COMMA = 17;
   /** RegularExpression Id. */
-  int LPAREN = 17;
+  int LPAREN = 18;
   /** RegularExpression Id. */
-  int RPAREN = 18;
+  int RPAREN = 19;
   /** RegularExpression Id. */
-  int LSQUARE = 19;
+  int LSQUARE = 20;
   /** RegularExpression Id. */
-  int RSQUARE = 20;
+  int RSQUARE = 21;
   /** RegularExpression Id. */
-  int LCURL = 21;
+  int LCURL = 22;
   /** RegularExpression Id. */
-  int RCURL = 22;
+  int RCURL = 23;
   /** RegularExpression Id. */
-  int LANGLE = 23;
+  int LANGLE = 24;
   /** RegularExpression Id. */
-  int RANGLE = 24;
+  int RANGLE = 25;
   /** RegularExpression Id. */
-  int EQUALTO = 25;
+  int EQUALTO = 26;
   /** RegularExpression Id. */
-  int EQUALTO_EQUALTO = 26;
+  int EQUALTO_EQUALTO = 27;
   /** RegularExpression Id. */
-  int LANGLE_EQUALTO = 27;
+  int LANGLE_EQUALTO = 28;
   /** RegularExpression Id. */
-  int RANGLE_EQUALTO = 28;
+  int RANGLE_EQUALTO = 29;
   /** RegularExpression Id. */
-  int BANG_EQUALTO = 29;
+  int BANG_EQUALTO = 30;
   /** RegularExpression Id. */
-  int PIPE_PIPE = 30;
+  int PIPE_PIPE = 31;
   /** RegularExpression Id. */
-  int AMPERSAND_AMPERSAND = 31;
+  int AMPERSAND_AMPERSAND = 32;
   /** RegularExpression Id. */
-  int BANG = 32;
+  int BANG = 33;
   /** RegularExpression Id. */
-  int DOT = 33;
+  int DOT = 34;
   /** RegularExpression Id. */
-  int NOT = 34;
+  int NOT = 35;
   /** RegularExpression Id. */
-  int IF = 35;
+  int IF = 36;
   /** RegularExpression Id. */
-  int END = 36;
+  int END = 37;
   /** RegularExpression Id. */
-  int SUB = 37;
+  int SUB = 38;
   /** RegularExpression Id. */
-  int LET = 38;
+  int LET = 39;
   /** RegularExpression Id. */
-  int CALL = 39;
+  int CALL = 40;
   /** RegularExpression Id. */
-  int THEN = 40;
+  int THEN = 41;
   /** RegularExpression Id. */
-  int CASE = 41;
+  int CASE = 42;
   /** RegularExpression Id. */
-  int ELSE = 42;
+  int ELSE = 43;
   /** RegularExpression Id. */
-  int INPUT = 43;
+  int INPUT = 44;
   /** RegularExpression Id. */
-  int PRINT = 44;
+  int PRINT = 45;
   /** RegularExpression Id. */
-  int SELECT = 45;
+  int SELECT = 46;
   /** RegularExpression Id. */
-  int STATIC = 46;
+  int STATIC = 47;
   /** RegularExpression Id. */
-  int STRING = 47;
+  int STRING = 48;
   /** RegularExpression Id. */
-  int SUPER = 48;
+  int SUPER = 49;
   /** RegularExpression Id. */
-  int RETURN = 49;
+  int RETURN = 50;
   /** RegularExpression Id. */
-  int READ = 50;
+  int READ = 51;
   /** RegularExpression Id. */
-  int NEW = 51;
+  int NEW = 52;
   /** RegularExpression Id. */
-  int INT = 52;
+  int INT = 53;
   /** RegularExpression Id. */
-  int FOR = 53;
+  int FOR = 54;
   /** RegularExpression Id. */
-  int EXTENDS = 54;
+  int EXTENDS = 55;
   /** RegularExpression Id. */
-  int CONSTRUCTOR = 55;
+  int CONSTRUCTOR = 56;
   /** RegularExpression Id. */
-  int CLASS = 56;
+  int CLASS = 57;
   /** RegularExpression Id. */
-  int BREAK = 57;
+  int BREAK = 58;
   /** RegularExpression Id. */
-  int DIGIT = 58;
+  int DIGIT = 59;
   /** RegularExpression Id. */
-  int CONSTANT = 59;
+  int CONSTANT = 60;
   /** RegularExpression Id. */
-  int IDENTIFIER = 60;
+  int IDENTIFIER = 61;
   /** RegularExpression Id. */
-  int LETTER = 61;
+  int LETTER = 62;
   /** RegularExpression Id. */
-  int INVALID_LEXICAL = 62;
+  int int_constant = 63;
+  /** RegularExpression Id. */
+  int string_constant = 64;
+  /** RegularExpression Id. */
+  int null_constant = 65;
+  /** RegularExpression Id. */
+  int INVALID_LEXICAL = 66;
+  /** RegularExpression Id. */
+  int INVALID_CONST = 67;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -129,12 +137,13 @@ public interface FunConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"\\n\"",
+    "\"\\f\"",
     "\"/*\"",
     "\"*/\"",
-    "<token of kind 7>",
+    "<token of kind 8>",
     "\"//\"",
-    "<token of kind 9>",
     "<token of kind 10>",
+    "<token of kind 11>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
@@ -186,7 +195,11 @@ public interface FunConstants {
     "<CONSTANT>",
     "<IDENTIFIER>",
     "<LETTER>",
+    "<int_constant>",
+    "<string_constant>",
+    "\"null\"",
     "<INVALID_LEXICAL>",
+    "<INVALID_CONST>",
   };
 
 }
