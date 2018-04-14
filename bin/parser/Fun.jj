@@ -100,6 +100,9 @@ TOKEN : /* OPERATORS */
 //RESERVED WORDS
 TOKEN : {
  <NOT: "not">
+| <AND: "and">
+| <OR: "or">
+| <XOR: "xor">
 | <IF: "if">
 | <END: "end">
 | <SUB: "sub">
@@ -132,6 +135,9 @@ TOKEN : {
 | < CONSTANT : (< DIGIT >)+ >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
 | <#LETTER: (["a"-"z","A"-"Z"])>
+| <#FLOAT: (< DIGIT >)+("."(<DIGIT>)+)?>
+| <LOGIC_CONSTANT: "true" | "false">
+| <CHAR : ~[]> } /*confirmar possibilidade de /n */
 }
 
 //CONSTANTES
