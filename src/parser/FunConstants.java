@@ -49,13 +49,13 @@ public interface FunConstants {
   /** RegularExpression Id. */
   int BANG_EQUALTO = 30;
   /** RegularExpression Id. */
-  int PIPE_PIPE = 31;
+  int DOT = 31;
   /** RegularExpression Id. */
-  int AMPERSAND_AMPERSAND = 32;
+  int AND = 32;
   /** RegularExpression Id. */
-  int BANG = 33;
+  int OR = 33;
   /** RegularExpression Id. */
-  int DOT = 34;
+  int XOR = 34;
   /** RegularExpression Id. */
   int NOT = 35;
   /** RegularExpression Id. */
@@ -105,23 +105,73 @@ public interface FunConstants {
   /** RegularExpression Id. */
   int BREAK = 58;
   /** RegularExpression Id. */
-  int DIGIT = 59;
+  int WHILE = 59;
   /** RegularExpression Id. */
-  int CONSTANT = 60;
+  int DO = 60;
   /** RegularExpression Id. */
-  int IDENTIFIER = 61;
+  int SWITCH = 61;
   /** RegularExpression Id. */
-  int LETTER = 62;
+  int DEFAULTT = 62;
   /** RegularExpression Id. */
-  int int_constant = 63;
+  int DOUBLE = 63;
   /** RegularExpression Id. */
-  int string_constant = 64;
+  int BYTE = 64;
   /** RegularExpression Id. */
-  int null_constant = 65;
+  int SHORT = 65;
   /** RegularExpression Id. */
-  int INVALID_LEXICAL = 66;
+  int LONG = 66;
   /** RegularExpression Id. */
-  int INVALID_CONST = 67;
+  int FINAL = 67;
+  /** RegularExpression Id. */
+  int PUBLIC = 68;
+  /** RegularExpression Id. */
+  int PRIVATE = 69;
+  /** RegularExpression Id. */
+  int PROTECTED = 70;
+  /** RegularExpression Id. */
+  int BOOL = 71;
+  /** RegularExpression Id. */
+  int DIGIT = 72;
+  /** RegularExpression Id. */
+  int CONSTANT = 73;
+  /** RegularExpression Id. */
+  int IDENTIFIER = 74;
+  /** RegularExpression Id. */
+  int LETTER = 75;
+  /** RegularExpression Id. */
+  int FLOAT = 76;
+  /** RegularExpression Id. */
+  int LOGIC_CONSTANT = 77;
+  /** RegularExpression Id. */
+  int CHAR = 78;
+  /** RegularExpression Id. */
+  int byte_constant = 79;
+  /** RegularExpression Id. */
+  int short_constant = 80;
+  /** RegularExpression Id. */
+  int int_constant = 81;
+  /** RegularExpression Id. */
+  int long_constant = 82;
+  /** RegularExpression Id. */
+  int float_constant = 83;
+  /** RegularExpression Id. */
+  int double_constant = 84;
+  /** RegularExpression Id. */
+  int char_constant = 85;
+  /** RegularExpression Id. */
+  int string_constant = 86;
+  /** RegularExpression Id. */
+  int bool_constant = 87;
+  /** RegularExpression Id. */
+  int TRUE = 88;
+  /** RegularExpression Id. */
+  int FALSE = 89;
+  /** RegularExpression Id. */
+  int null_constant = 90;
+  /** RegularExpression Id. */
+  int INVALID_LEXICAL = 91;
+  /** RegularExpression Id. */
+  int INVALID_CONST = 92;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -163,11 +213,11 @@ public interface FunConstants {
     "\"<=\"",
     "\">=\"",
     "\"!=\"",
-    "\"||\"",
-    "\"&&\"",
-    "\"!\"",
     "\".\"",
-    "\"not\"",
+    "\"&&\"",
+    "\"||\"",
+    "\"^\"",
+    "\"!\"",
     "\"if\"",
     "\"end\"",
     "\"sub\"",
@@ -191,12 +241,37 @@ public interface FunConstants {
     "\"constructor\"",
     "\"class\"",
     "\"break\"",
+    "\"while\"",
+    "\"do\"",
+    "\"switch\"",
+    "\"default\"",
+    "\"double\"",
+    "\"byte\"",
+    "\"short\"",
+    "\"long\"",
+    "\"final\"",
+    "\"public\"",
+    "\"private\"",
+    "\"protected\"",
+    "\"bool\"",
     "<DIGIT>",
     "<CONSTANT>",
     "<IDENTIFIER>",
     "<LETTER>",
+    "<FLOAT>",
+    "<LOGIC_CONSTANT>",
+    "<CHAR>",
+    "<byte_constant>",
+    "<short_constant>",
     "<int_constant>",
+    "<long_constant>",
+    "<float_constant>",
+    "<double_constant>",
+    "<char_constant>",
     "<string_constant>",
+    "<bool_constant>",
+    "\"true\"",
+    "\"false\"",
     "\"null\"",
     "<INVALID_LEXICAL>",
     "<INVALID_CONST>",
