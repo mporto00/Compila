@@ -71,76 +71,84 @@ SKIP :
 
 TOKEN : /* OPERATORS */
 {
-  < PLUS : "+" >
+  < ASSIGN : "=" >
+| < GT : ">" >
+| < LT : "<" >
+| < EQ : "==" >
+| < LE : "<=" >
+| < GE : ">=" >
+| < NEQ : "!=" >
+| < PLUS : "+" >
 | < MINUS : "-" >
 | < MULTIPLY : "*" >
 | < DIVIDE : "/" >
-| < SEMICOLON : ";" >
-| < COMMA : "," >
-| < LPAREN : "(" >
-| < RPAREN : ")" >
-| < LSQUARE : "[" >
-| < RSQUARE : "]" >
-| < LCURL : "{" >
-| < RCURL : "}" >
-| < LANGLE : "<" >
-| < RANGLE : ">" >
-| < EQUALTO : "=" >
-| < EQUALTO_EQUALTO : "==" >
-| < LANGLE_EQUALTO : "<=" >
-| < RANGLE_EQUALTO : ">=" >
-| < BANG_EQUALTO : "!=" >
-| < DOT : "." >
+| < REM : "%" >
+
+/*added*/
+
 | < AND: "&&">
 | < OR: "||">
 | < XOR: "^">
 | < NOT: "!">
 }
 
+// SIMBOLOS ESPECIAIS
+TOKEN :
+{
+  < SEMICOLON : ";" >
+| < COMMA : "," >
+| < LPAREN : "(" >
+| < RPAREN : ")" >
+| < LBRACKET : "[" >
+| < RBRACKET : "]" >
+| < LBRACE : "{" >
+| < RBRACE : "}" >
+| < DOT : "." >
+}
 //RESERVED WORDS
+
 TOKEN : {
- <IF: "if">
+ <BREAK: "break">
+| <CLASS: "class">
+| <CONSTRUCTOR: "constructor">
+| <ELSE: "else">
+| <EXTENDS: "extends">
+| <FOR: "for">
+|  <IF: "if">
+| <INT: "int">
+| <NEW: "new">
+| <PRINT: "print">
+| <READ: "read">
+| <RETURN: "return">
+| <STRING: "string">
+| <SUPER: "super">
+/* added*/
 | <END: "end">
 | <SUB: "sub">
 | <LET: "let">
 | <CALL: "call">
 | <THEN: "then">
 | <CASE: "case">
-| <ELSE: "else">
 | <INPUT: "input">
-| <PRINT: "print">
 | <SELECT: "select">
 | <STATIC: "static">
-| <STRING: "string">
-| <SUPER: "super">
-| <RETURN: "return">
-| <READ: "read">
-| <NEW: "new">
-| <INT: "int">
-| <FOR: "for">
-| <EXTENDS: "extends">
-| <CONSTRUCTOR: "constructor">
-| <CLASS: "class">
-| <BREAK: "break">
-
-    | < WHILE: "while" >
-    | < DO: "do" >
-    | < SWITCH: "switch" >
-    | < DEFAULTT: "default" >
-    | < DOUBLE: "double" >
-
-    | < BYTE: "byte" >
-    | < SHORT: "short" >
-    | < LONG: "long" >
-    | < FINAL: "final" >
-    | < PUBLIC: "public" >
-    | < PRIVATE: "private" >
-    | < PROTECTED: "protected" >
-    | < BOOL: "bool" >
+| < WHILE: "while" >
+| < DO: "do" >
+| < SWITCH: "switch" >
+| < DEFAULTT: "default" >
+| < DOUBLE: "double" >
+| < BYTE: "byte" >
+| < SHORT: "short" >
+| < LONG: "long" >
+| < FINAL: "final" >
+| < PUBLIC: "public" >
+| < PRIVATE: "private" >
+| < PROTECTED: "protected" >
 }
 
 //IDENTIFIER TOKEN
 TOKEN : {
+  
   <#DIGIT : [ "0"-"9" ] >
 | <CONSTANT : (< DIGIT >)+ >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
@@ -175,12 +183,6 @@ TOKEN :
     |
     < string_constant:    
     "\""( ~["\"","\n","\r"])* "\"" >
-    |
-    < bool_constant: (<TRUE> | <FALSE>) >
-    |
-    < #TRUE: "true" >
-    |
-    < #FALSE: "false" >
     |
     < null_constant: "null" >  
   }

@@ -11,125 +11,125 @@ public interface FunConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int PLUS = 12;
+  int ASSIGN = 12;
   /** RegularExpression Id. */
-  int MINUS = 13;
+  int GT = 13;
   /** RegularExpression Id. */
-  int MULTIPLY = 14;
+  int LT = 14;
   /** RegularExpression Id. */
-  int DIVIDE = 15;
+  int EQ = 15;
   /** RegularExpression Id. */
-  int SEMICOLON = 16;
+  int LE = 16;
   /** RegularExpression Id. */
-  int COMMA = 17;
+  int GE = 17;
   /** RegularExpression Id. */
-  int LPAREN = 18;
+  int NEQ = 18;
   /** RegularExpression Id. */
-  int RPAREN = 19;
+  int PLUS = 19;
   /** RegularExpression Id. */
-  int LSQUARE = 20;
+  int MINUS = 20;
   /** RegularExpression Id. */
-  int RSQUARE = 21;
+  int MULTIPLY = 21;
   /** RegularExpression Id. */
-  int LCURL = 22;
+  int DIVIDE = 22;
   /** RegularExpression Id. */
-  int RCURL = 23;
+  int REM = 23;
   /** RegularExpression Id. */
-  int LANGLE = 24;
+  int AND = 24;
   /** RegularExpression Id. */
-  int RANGLE = 25;
+  int OR = 25;
   /** RegularExpression Id. */
-  int EQUALTO = 26;
+  int XOR = 26;
   /** RegularExpression Id. */
-  int EQUALTO_EQUALTO = 27;
+  int NOT = 27;
   /** RegularExpression Id. */
-  int LANGLE_EQUALTO = 28;
+  int SEMICOLON = 28;
   /** RegularExpression Id. */
-  int RANGLE_EQUALTO = 29;
+  int COMMA = 29;
   /** RegularExpression Id. */
-  int BANG_EQUALTO = 30;
+  int LPAREN = 30;
   /** RegularExpression Id. */
-  int DOT = 31;
+  int RPAREN = 31;
   /** RegularExpression Id. */
-  int AND = 32;
+  int LBRACKET = 32;
   /** RegularExpression Id. */
-  int OR = 33;
+  int RBRACKET = 33;
   /** RegularExpression Id. */
-  int XOR = 34;
+  int LBRACE = 34;
   /** RegularExpression Id. */
-  int NOT = 35;
+  int RBRACE = 35;
   /** RegularExpression Id. */
-  int IF = 36;
+  int DOT = 36;
   /** RegularExpression Id. */
-  int END = 37;
+  int BREAK = 37;
   /** RegularExpression Id. */
-  int SUB = 38;
+  int CLASS = 38;
   /** RegularExpression Id. */
-  int LET = 39;
+  int CONSTRUCTOR = 39;
   /** RegularExpression Id. */
-  int CALL = 40;
+  int ELSE = 40;
   /** RegularExpression Id. */
-  int THEN = 41;
+  int EXTENDS = 41;
   /** RegularExpression Id. */
-  int CASE = 42;
+  int FOR = 42;
   /** RegularExpression Id. */
-  int ELSE = 43;
+  int IF = 43;
   /** RegularExpression Id. */
-  int INPUT = 44;
+  int INT = 44;
   /** RegularExpression Id. */
-  int PRINT = 45;
+  int NEW = 45;
   /** RegularExpression Id. */
-  int SELECT = 46;
+  int PRINT = 46;
   /** RegularExpression Id. */
-  int STATIC = 47;
+  int READ = 47;
   /** RegularExpression Id. */
-  int STRING = 48;
+  int RETURN = 48;
   /** RegularExpression Id. */
-  int SUPER = 49;
+  int STRING = 49;
   /** RegularExpression Id. */
-  int RETURN = 50;
+  int SUPER = 50;
   /** RegularExpression Id. */
-  int READ = 51;
+  int END = 51;
   /** RegularExpression Id. */
-  int NEW = 52;
+  int SUB = 52;
   /** RegularExpression Id. */
-  int INT = 53;
+  int LET = 53;
   /** RegularExpression Id. */
-  int FOR = 54;
+  int CALL = 54;
   /** RegularExpression Id. */
-  int EXTENDS = 55;
+  int THEN = 55;
   /** RegularExpression Id. */
-  int CONSTRUCTOR = 56;
+  int CASE = 56;
   /** RegularExpression Id. */
-  int CLASS = 57;
+  int INPUT = 57;
   /** RegularExpression Id. */
-  int BREAK = 58;
+  int SELECT = 58;
   /** RegularExpression Id. */
-  int WHILE = 59;
+  int STATIC = 59;
   /** RegularExpression Id. */
-  int DO = 60;
+  int WHILE = 60;
   /** RegularExpression Id. */
-  int SWITCH = 61;
+  int DO = 61;
   /** RegularExpression Id. */
-  int DEFAULTT = 62;
+  int SWITCH = 62;
   /** RegularExpression Id. */
-  int DOUBLE = 63;
+  int DEFAULTT = 63;
   /** RegularExpression Id. */
-  int BYTE = 64;
+  int DOUBLE = 64;
   /** RegularExpression Id. */
-  int SHORT = 65;
+  int BYTE = 65;
   /** RegularExpression Id. */
-  int LONG = 66;
+  int SHORT = 66;
   /** RegularExpression Id. */
-  int FINAL = 67;
+  int LONG = 67;
   /** RegularExpression Id. */
-  int PUBLIC = 68;
+  int FINAL = 68;
   /** RegularExpression Id. */
-  int PRIVATE = 69;
+  int PUBLIC = 69;
   /** RegularExpression Id. */
-  int PROTECTED = 70;
+  int PRIVATE = 70;
   /** RegularExpression Id. */
-  int BOOL = 71;
+  int PROTECTED = 71;
   /** RegularExpression Id. */
   int DIGIT = 72;
   /** RegularExpression Id. */
@@ -161,17 +161,11 @@ public interface FunConstants {
   /** RegularExpression Id. */
   int string_constant = 86;
   /** RegularExpression Id. */
-  int bool_constant = 87;
+  int null_constant = 87;
   /** RegularExpression Id. */
-  int TRUE = 88;
+  int INVALID_LEXICAL = 88;
   /** RegularExpression Id. */
-  int FALSE = 89;
-  /** RegularExpression Id. */
-  int null_constant = 90;
-  /** RegularExpression Id. */
-  int INVALID_LEXICAL = 91;
-  /** RegularExpression Id. */
-  int INVALID_CONST = 92;
+  int INVALID_CONST = 89;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -194,10 +188,22 @@ public interface FunConstants {
     "\"//\"",
     "<token of kind 10>",
     "<token of kind 11>",
+    "\"=\"",
+    "\">\"",
+    "\"<\"",
+    "\"==\"",
+    "\"<=\"",
+    "\">=\"",
+    "\"!=\"",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
+    "\"%\"",
+    "\"&&\"",
+    "\"||\"",
+    "\"^\"",
+    "\"!\"",
     "\";\"",
     "\",\"",
     "\"(\"",
@@ -206,41 +212,30 @@ public interface FunConstants {
     "\"]\"",
     "\"{\"",
     "\"}\"",
-    "\"<\"",
-    "\">\"",
-    "\"=\"",
-    "\"==\"",
-    "\"<=\"",
-    "\">=\"",
-    "\"!=\"",
     "\".\"",
-    "\"&&\"",
-    "\"||\"",
-    "\"^\"",
-    "\"!\"",
+    "\"break\"",
+    "\"class\"",
+    "\"constructor\"",
+    "\"else\"",
+    "\"extends\"",
+    "\"for\"",
     "\"if\"",
+    "\"int\"",
+    "\"new\"",
+    "\"print\"",
+    "\"read\"",
+    "\"return\"",
+    "\"string\"",
+    "\"super\"",
     "\"end\"",
     "\"sub\"",
     "\"let\"",
     "\"call\"",
     "\"then\"",
     "\"case\"",
-    "\"else\"",
     "\"input\"",
-    "\"print\"",
     "\"select\"",
     "\"static\"",
-    "\"string\"",
-    "\"super\"",
-    "\"return\"",
-    "\"read\"",
-    "\"new\"",
-    "\"int\"",
-    "\"for\"",
-    "\"extends\"",
-    "\"constructor\"",
-    "\"class\"",
-    "\"break\"",
     "\"while\"",
     "\"do\"",
     "\"switch\"",
@@ -253,7 +248,6 @@ public interface FunConstants {
     "\"public\"",
     "\"private\"",
     "\"protected\"",
-    "\"bool\"",
     "<DIGIT>",
     "<CONSTANT>",
     "<IDENTIFIER>",
@@ -269,9 +263,6 @@ public interface FunConstants {
     "<double_constant>",
     "<char_constant>",
     "<string_constant>",
-    "<bool_constant>",
-    "\"true\"",
-    "\"false\"",
     "\"null\"",
     "<INVALID_LEXICAL>",
     "<INVALID_CONST>",
