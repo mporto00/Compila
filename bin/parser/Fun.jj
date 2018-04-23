@@ -86,10 +86,10 @@ TOKEN : /* OPERATORS */
 
 /*added*/
 
-| < AND: "&&">
-| < OR: "||">
-| < XOR: "^">
-| < NOT: "!">
+| < AND: "and">
+| < OR: "or">
+| < XOR: "xor">
+| < NOT: "not">
 }
 
 // SIMBOLOS ESPECIAIS
@@ -135,7 +135,7 @@ TOKEN : {
 | < WHILE: "while" >
 | < DO: "do" >
 | < SWITCH: "switch" >
-| < DEFAULTT: "default" >
+| < DEFAULT: "default" >
 | < DOUBLE: "double" >
 | < BYTE: "byte" >
 | < SHORT: "short" >

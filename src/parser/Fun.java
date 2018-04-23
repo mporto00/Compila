@@ -20,10 +20,74 @@ public class Fun implements FunConstants {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case PLUS:
-      case MINUS:
-      case MULTIPLY:
-      case DIVIDE:
+      case  ASSIGN:
+      case  GT:
+      case  LT:
+      case  EQ:
+      case  LE:
+      case  GE:
+      case  NEQ:
+      case  PLUS:
+      case  MINUS:
+      case  MULTIPLY:
+      case  DIVIDE:
+      case  REM:
+      case  AND:
+      case  OR:
+      case  XOR:
+      case  NOT:
+      case  SEMICOLON:
+      case  COMMA:
+      case  LPAREN:
+      case  RPAREN:
+      case  LBRACKET:
+      case  RBRACKET:
+      case  LBRACE:
+      case  RBRACE:
+      case  DOT:
+      case  BREAK:
+      case CLASS:
+      case CONSTRUCTOR:
+      case ELSE:
+      case EXTENDS:
+      case FOR:
+      case IF:
+      case INT:
+      case NEW:
+      case PRINT:
+      case READ:
+      case RETURN:
+      case STRING:
+      case SUPER:
+      case END:
+      case SUB:
+      case LET:
+      case CALL:
+      case THEN:
+      case CASE:
+      case INPUT:
+      case SELECT:
+      case STATIC:
+      case WHILE:
+      case DO:
+      case SWITCH:
+      case DEFAULTT:
+      case DOUBLE:
+      case BYTE:
+      case SHORT:
+      case LONG:
+      case FINAL:
+      case PUBLIC:
+      case PRIVATE:
+      case PROTECTED:
+      case DIGIT:
+      case CONSTANT:
+      case IDENTIFIER:
+      case LETTER:
+      case FLOAT:
+      case LOGIC_CONSTANT:
+      case CHAR:
+ 
         ;
         break;
       default:
@@ -31,22 +95,273 @@ public class Fun implements FunConstants {
         break label_1;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case GT:
+          jj_consume_token(GT);
+                 System.out.println("Reconheceu GT");
+          break;  
+      case LT:
+          jj_consume_token(LT);
+                 System.out.println("Reconheceu LT");
+          break;
+      case EQ:
+          jj_consume_token(EQ);
+                 System.out.println("Reconheceu EQ");
+          break;
+
+      case LE:
+          jj_consume_token(LE);
+                 System.out.println("Reconheceu LE");
+          break;
+
+      case GE:
+          jj_consume_token(GE);
+                 System.out.println("Reconheceu GE");
+          break;
+      case NEQ:
+          jj_consume_token(NEQ);
+                 System.out.println("Reconheceu NEQ");
+          break;
       case PLUS:
-        jj_consume_token(PLUS);
-             System.out.println("Reconheceu PLUS");
-        break;
+          jj_consume_token(PLUS);
+                 System.out.println("Reconheceu PLUS");
+          break;
       case MINUS:
-        jj_consume_token(MINUS);
-              System.out.println("Reconheceu MINUS");
-        break;
+          jj_consume_token(MINUS);
+                 System.out.println("Reconheceu MINUS");
+          break;
       case MULTIPLY:
-        jj_consume_token(MULTIPLY);
+          jj_consume_token(MULTIPLY);
                  System.out.println("Reconheceu MULTIPLY");
-        break;
+          break;
       case DIVIDE:
-        jj_consume_token(DIVIDE);
-               System.out.println("Reconheceu DIVIDE");
-        break;
+          jj_consume_token(DIVIDE);
+                 System.out.println("Reconheceu DIVIDE");
+          break;
+      case REM:
+          jj_consume_token(REM);
+                 System.out.println("Reconheceu REM");
+          break;
+      case AND:
+          jj_consume_token(AND);
+                 System.out.println("Reconheceu AND");
+          break;
+      case OR:
+          jj_consume_token(OR);
+                 System.out.println("Reconheceu OR");
+          break;
+      case XOR:
+          jj_consume_token(XOR);
+                 System.out.println("Reconheceu XOR");
+          break;
+      case NOT:
+          jj_consume_token(NOT);
+                 System.out.println("Reconheceu NOT");
+          break;
+      case SEMICOLON:
+          jj_consume_token(SEMICOLON);
+                 System.out.println("Reconheceu SEMICOLON");
+          break;
+      case COMMA:
+          jj_consume_token(COMMA);
+                 System.out.println("Reconheceu COMMA");
+          break;
+      case LPAREN:
+          jj_consume_token(LPAREN);
+                 System.out.println("Reconheceu LPAREN");
+          break;
+      case RPAREN:
+          jj_consume_token(RPAREN);
+                 System.out.println("Reconheceu RPAREN");
+          break;
+      case LBRACKET:
+          jj_consume_token(LBRACKET);
+                 System.out.println("Reconheceu LBRACKET");
+          break;
+      case RBRACKET:
+          jj_consume_token(RBRACKET);
+                 System.out.println("Reconheceu RBRACKET");
+          break;
+      case LBRACE:
+          jj_consume_token(LBRACE);
+                 System.out.println("Reconheceu LBRACE");
+          break;
+      case RBRACE:
+          jj_consume_token(RBRACE);
+                 System.out.println("Reconheceu RBRACE");
+          break;
+      case DOT:
+          jj_consume_token(DOT);
+                 System.out.println("Reconheceu DOT");
+          break;
+      case BREAK:
+          jj_consume_token(BREAK);
+                 System.out.println("Reconheceu BREAK");
+          break;
+      case CLASS:
+          jj_consume_token(CLASS);
+                 System.out.println("Reconheceu CLASS");
+          break;
+      case CONSTRUCTOR:
+          jj_consume_token(CONSTRUCTOR);
+                 System.out.println("Reconheceu CONSTRUCTOR");
+          break;
+      case ELSE:
+          jj_consume_token(ELSE);
+                 System.out.println("Reconheceu ELSE");
+          break;
+      case EXTENDS:
+          jj_consume_token(EXTENDS);
+                 System.out.println("Reconheceu EXTENDS");
+          break;
+      case FOR:
+          jj_consume_token(FOR);
+                 System.out.println("Reconheceu FOR");
+          break;
+      case IF:
+          jj_consume_token(IF);
+                 System.out.println("Reconheceu IF");
+          break;
+      case INT:
+          jj_consume_token(INT);
+                 System.out.println("Reconheceu INT");
+          break;
+      case NEW:
+          jj_consume_token(NEW);
+                 System.out.println("Reconheceu NEW");
+          break;
+      case PRINT:
+          jj_consume_token(PRINT);
+                 System.out.println("Reconheceu PRINT");
+          break;
+      case READ:
+          jj_consume_token(READ);
+                 System.out.println("Reconheceu READ");
+          break;
+      case RETURN:
+          jj_consume_token(RETURN);
+                 System.out.println("Reconheceu RETURN");
+          break;
+      case STRING:
+          jj_consume_token(STRING);
+                 System.out.println("Reconheceu STRING");
+          break;
+      case SUPER:
+          jj_consume_token(SUPER);
+                 System.out.println("Reconheceu SUPER");
+          break;
+      case END:
+          jj_consume_token(END);
+                 System.out.println("Reconheceu END");
+          break;
+      case SUB:
+          jj_consume_token(SUB);
+                 System.out.println("Reconheceu SUB");
+          break;
+      case LET:
+          jj_consume_token(LET);
+                 System.out.println("Reconheceu LET");
+          break;
+      case CALL:
+          jj_consume_token(CALL);
+                 System.out.println("Reconheceu CALL");
+          break;
+      case THEN:
+          jj_consume_token(THEN);
+                 System.out.println("Reconheceu THEN");
+          break;
+      case CASE:
+          jj_consume_token(CASE);
+                 System.out.println("Reconheceu CASE");
+          break;
+      case INPUT:
+          jj_consume_token(INPUT);
+                 System.out.println("Reconheceu INPUT");
+          break;
+      case SELECT:
+          jj_consume_token(SELECT);
+                 System.out.println("Reconheceu SELECT");
+          break;
+      case STATIC:
+          jj_consume_token(STATIC);
+                 System.out.println("Reconheceu STATIC");
+          break;
+      case WHILE:
+          jj_consume_token(WHILE);
+                 System.out.println("Reconheceu WHILE");
+          break;
+      case DO:
+          jj_consume_token(DO);
+                 System.out.println("Reconheceu DO");
+          break;
+      case SWITCH:
+          jj_consume_token(SWITCH);
+                 System.out.println("Reconheceu SWITCH");
+          break;
+      case DEFAULT:
+          jj_consume_token(DEFAULT);
+                 System.out.println("Reconheceu DEFAULT");
+          break;
+      case DOUBLE:
+          jj_consume_token(DOUBLE);
+                 System.out.println("Reconheceu DOUBLE");
+          break;
+      case BYTE:
+          jj_consume_token(BYTE);
+                 System.out.println("Reconheceu BYTE");
+          break;
+      case SHORT:
+          jj_consume_token(SHORT);
+                 System.out.println("Reconheceu SHORT");
+          break;
+      case LONG:
+          jj_consume_token(LONG);
+                 System.out.println("Reconheceu LONG");
+          break;
+      case FINAL:
+          jj_consume_token(FINAL);
+                 System.out.println("Reconheceu FINAL");
+          break;
+      case PUBLIC:
+          jj_consume_token(PUBLIC);
+                 System.out.println("Reconheceu PUBLIC");
+          break;
+      case PRIVATE:
+          jj_consume_token(PRIVATE);
+                 System.out.println("Reconheceu PRIVATE");
+          break;
+      case PROTECTED:
+          jj_consume_token(PROTECTED);
+                 System.out.println("Reconheceu PROTECTED");
+          break;
+      case DIGIT:
+          jj_consume_token(DIGIT);
+                 System.out.println("Reconheceu DIGIT");
+          break;
+	  case CONSTANT:
+	       jj_consume_token(CONSTANT);
+	              System.out.println("Reconheceu CONSTANT");
+	       break;
+	   case IDENTIFIER:
+	       jj_consume_token(IDENTIFIER);
+	              System.out.println("Reconheceu IDENTIFIER");
+	       break;
+	   case LETTER:
+	       jj_consume_token(LETTER);
+	              System.out.println("Reconheceu LETTER");
+	       break;
+	   case FLOAT:
+	       jj_consume_token(FLOAT);
+	              System.out.println("Reconheceu FLOAT");
+	       break;
+	   case LOGIC_CONSTANT:
+	       jj_consume_token(LOGIC_CONSTANT);
+	              System.out.println("Reconheceu LOGIC_CONSTANT");
+	       break;
+	   case CHAR:
+	       jj_consume_token(CHAR);
+	              System.out.println("Reconheceu CHAR");
+	       break;
+
       default:
         jj_la1[1] = jj_gen;
         jj_consume_token(-1);
