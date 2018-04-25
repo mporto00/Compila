@@ -71,7 +71,7 @@ public class Fun implements FunConstants {
       case WHILE:
       case DO:
       case SWITCH:
-      case DEFAULTT:
+      case DEFAULT:
       case DOUBLE:
       case BYTE:
       case SHORT:
@@ -85,9 +85,10 @@ public class Fun implements FunConstants {
       case IDENTIFIER:
       case LETTER:
       case FLOAT:
-      case LOGIC_CONSTANT:
+      case BOOLEAN:
       case CHAR:
- 
+      case INTEGER:
+    	  
         ;
         break;
       default:
@@ -353,13 +354,17 @@ public class Fun implements FunConstants {
 	       jj_consume_token(FLOAT);
 	              System.out.println("Reconheceu FLOAT");
 	       break;
-	   case LOGIC_CONSTANT:
-	       jj_consume_token(LOGIC_CONSTANT);
-	              System.out.println("Reconheceu LOGIC_CONSTANT");
+	   case BOOLEAN:
+	       jj_consume_token(BOOLEAN);
+	              System.out.println("Reconheceu BOOLEAN");
 	       break;
 	   case CHAR:
 	       jj_consume_token(CHAR);
 	              System.out.println("Reconheceu CHAR");
+	       break;
+	   case INTEGER:
+	       jj_consume_token(INTEGER);
+	              System.out.println("Reconheceu INTEGER");
 	       break;
 
       default:
