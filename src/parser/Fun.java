@@ -2,18 +2,51 @@
 package parser;
 
 public class Fun implements FunConstants {
-  public static void main(String args []) throws ParseException
+	boolean Menosshort = false; 
+    
+	public static void main(String args []) throws ParseException
   {
     Fun parser = new Fun(System.in);
-
-        try {
-        parser.program();
-        System.out.println("Sucesso!");
-        } catch (ParseException e) {
-                System.out.println(e);
-        } catch (TokenMgrError e) {
-                System.out.println(e);
-        }
+    String filename = "file.txt";
+    int i;
+    boolean ms = false;
+    
+    /*for (i=0 ; i < args.length - 1 ; i++) {
+    	if ( args[i].toLowerCase().equals("-short"))
+    		ms = true;
+    	else {
+    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
+    		System.exit(0);
+    	}
+    }*/
+    //if (args[i].equals("-"))
+    if (false)
+    {
+    	System.out.println("Lendo entrada padrão..");
+    	parser = new Fun(System.in);
+   
+    } else
+    {
+    	//filename = args[args.length-1];
+    	//filename = args[args.length-1];
+    	System.out.println("Lendo do arquivo " +  filename);
+    	try {
+    		parser = new Fun (new java.io.FileInputStream(filename) );
+    	} catch (java.io.FileNotFoundException e) {
+    		System.out.println("Arquivo " + filename + " não encontrado.");
+    		return;
+    	}
+    	
+    }
+    
+    parser.Menosshort = ms;
+    parser.program();
+    
+    if (parser.token_source.foundLexError() != 0) {
+    	System.out.println(parser.token_source.foundLexError() + " erros léxicos encontrados.");
+    } else {
+    	System.out.println("Programa analisado com sucesso");
+    }
   }
 
   final public void program() throws ParseException {
@@ -297,10 +330,6 @@ public class Fun implements FunConstants {
       case SWITCH:
           jj_consume_token(SWITCH);
                  System.out.println("Reconheceu SWITCH");
-          break;
-      case DEFAULT:
-          jj_consume_token(DEFAULT);
-                 System.out.println("Reconheceu DEFAULT");
           break;
       case DOUBLE:
           jj_consume_token(DOUBLE);
