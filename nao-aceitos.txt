@@ -13,5 +13,3 @@ TESTE"
 @
 §
 !variavel
-
-'a\n'
