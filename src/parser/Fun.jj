@@ -151,13 +151,11 @@ TOKEN :
 
 TOKEN : /* CONSTANTES NUMERICAS */
 {
-		< FLOAT: <INTEGER> "." ( <INTEGER> )+
-    	>
+		< FLOAT: <INTEGER> "." ( <INTEGER> )+ >
   | 	< INTEGER: ( <DIGIT> )+
   |     (["0"-"7"] (["0"-"7"])* ["o", "O"] ) 
   |     ((<DIGIT> | ["A"-"F","a"-"f"])* ["h", "H"] )
-  |     (["0"-"1"] (["0"-"1"])* ["b", "B"])  
-  >
+  |     (["0"-"1"] (["0"-"1"])* ["b", "B"]) >
   | 	< #DIGIT: ["0" - "9"] >
 }
 
@@ -169,7 +167,8 @@ TOKEN : {
 | <CHAR :"'"~[]"'" | "'\\n'" >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
 | <STRING: "\""( ~["\"","\n","\r"])* "\"" >
-| <NULL: "null" > }
+| <NULL: "null" >
+}
 
 //TOKEN P/ LANÇAR ERRO LÉXICO
 SPECIAL_TOKEN : {
@@ -205,6 +204,11 @@ SPECIAL_TOKEN : {
 | < INVALID_CONST:
 	"\"" (~ ["\n","\r","\""])* ["\n","\r"] > {
 	    System.err.println("Line " + input_stream.getEndLine() + " - String constant has a \\n: " + image);
+	  	countLexError++;
+	  }
+| < INVALID_CHAR:
+	"'" (~ ["\n","\r","'"])* ["\n","\r"] > {
+	    System.err.println("Line " + input_stream.getEndLine() + " - Char constant has a \\n: " + image);
 	  	countLexError++;
 	  }
 }

@@ -1,6 +1,11 @@
+/*TOKENS NAO-ACEITOS*/
 
 "STRIN 
 TESTE"
+
+'a
+'
+.46
 
 |
 ¨
@@ -8,3 +13,5 @@ TESTE"
 @
 §
 !variavel
+
+'a\n'

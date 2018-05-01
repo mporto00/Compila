@@ -85,87 +85,73 @@ public interface FunConstants {
   /** RegularExpression Id. */
   int RETURN = 48;
   /** RegularExpression Id. */
-  int STRING = 49;
+  int SUPER = 49;
   /** RegularExpression Id. */
-  int SUPER = 50;
+  int END = 50;
   /** RegularExpression Id. */
-  int END = 51;
+  int SUB = 51;
   /** RegularExpression Id. */
-  int SUB = 52;
+  int LET = 52;
   /** RegularExpression Id. */
-  int LET = 53;
+  int CALL = 53;
   /** RegularExpression Id. */
-  int CALL = 54;
+  int THEN = 54;
   /** RegularExpression Id. */
-  int THEN = 55;
+  int CASE = 55;
   /** RegularExpression Id. */
-  int CASE = 56;
+  int INPUT = 56;
   /** RegularExpression Id. */
-  int INPUT = 57;
+  int SELECT = 57;
   /** RegularExpression Id. */
-  int SELECT = 58;
+  int STATIC = 58;
   /** RegularExpression Id. */
-  int STATIC = 59;
+  int WHILE = 59;
   /** RegularExpression Id. */
-  int WHILE = 60;
+  int DO = 60;
   /** RegularExpression Id. */
-  int DO = 61;
+  int SWITCH = 61;
   /** RegularExpression Id. */
-  int SWITCH = 62;
+  int DOUBLE = 62;
   /** RegularExpression Id. */
-  int DEFAULTT = 63;
+  int BYTE = 63;
   /** RegularExpression Id. */
-  int DOUBLE = 64;
+  int SHORT = 64;
   /** RegularExpression Id. */
-  int BYTE = 65;
+  int LONG = 65;
   /** RegularExpression Id. */
-  int SHORT = 66;
+  int FINAL = 66;
   /** RegularExpression Id. */
-  int LONG = 67;
+  int PUBLIC = 67;
   /** RegularExpression Id. */
-  int FINAL = 68;
+  int PRIVATE = 68;
   /** RegularExpression Id. */
-  int PUBLIC = 69;
+  int PROTECTED = 69;
   /** RegularExpression Id. */
-  int PRIVATE = 70;
+  int FLOAT = 70;
   /** RegularExpression Id. */
-  int PROTECTED = 71;
+  int INTEGER = 71;
   /** RegularExpression Id. */
   int DIGIT = 72;
   /** RegularExpression Id. */
-  int CONSTANT = 73;
+  int LETTER = 73;
   /** RegularExpression Id. */
-  int IDENTIFIER = 74;
+  int CONSTANT = 74;
   /** RegularExpression Id. */
-  int LETTER = 75;
+  int BOOLEAN = 75;
   /** RegularExpression Id. */
-  int FLOAT = 76;
+  int CHAR = 76;
   /** RegularExpression Id. */
-  int LOGIC_CONSTANT = 77;
+  int IDENTIFIER = 77;
   /** RegularExpression Id. */
-  int CHAR = 78;
+  int STRING = 78;
   /** RegularExpression Id. */
-  int byte_constant = 79;
+  int NULL = 79;
   /** RegularExpression Id. */
-  int short_constant = 80;
+  int INVALID_LEXICAL = 80;
   /** RegularExpression Id. */
-  int int_constant = 81;
+  int INVALID_CONST = 81;
   /** RegularExpression Id. */
-  int long_constant = 82;
-  /** RegularExpression Id. */
-  int float_constant = 83;
-  /** RegularExpression Id. */
-  int double_constant = 84;
-  /** RegularExpression Id. */
-  int char_constant = 85;
-  /** RegularExpression Id. */
-  int string_constant = 86;
-  /** RegularExpression Id. */
-  int null_constant = 87;
-  /** RegularExpression Id. */
-  int INVALID_LEXICAL = 88;
-  /** RegularExpression Id. */
-  int INVALID_CONST = 89;
+  int INVALID_CHAR = 82;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -200,10 +186,10 @@ public interface FunConstants {
     "\"*\"",
     "\"/\"",
     "\"%\"",
-    "\"&&\"",
-    "\"||\"",
-    "\"^\"",
-    "\"!\"",
+    "\"and\"",
+    "\"or\"",
+    "\"xor\"",
+    "\"not\"",
     "\";\"",
     "\",\"",
     "\"(\"",
@@ -225,7 +211,6 @@ public interface FunConstants {
     "\"print\"",
     "\"read\"",
     "\"return\"",
-    "\"string\"",
     "\"super\"",
     "\"end\"",
     "\"sub\"",
@@ -239,7 +224,6 @@ public interface FunConstants {
     "\"while\"",
     "\"do\"",
     "\"switch\"",
-    "\"default\"",
     "\"double\"",
     "\"byte\"",
     "\"short\"",
@@ -248,24 +232,19 @@ public interface FunConstants {
     "\"public\"",
     "\"private\"",
     "\"protected\"",
-    "<DIGIT>",
-    "<CONSTANT>",
-    "<IDENTIFIER>",
-    "<LETTER>",
     "<FLOAT>",
-    "<LOGIC_CONSTANT>",
+    "<INTEGER>",
+    "<DIGIT>",
+    "<LETTER>",
+    "<CONSTANT>",
+    "<BOOLEAN>",
     "<CHAR>",
-    "<byte_constant>",
-    "<short_constant>",
-    "<int_constant>",
-    "<long_constant>",
-    "<float_constant>",
-    "<double_constant>",
-    "<char_constant>",
-    "<string_constant>",
+    "<IDENTIFIER>",
+    "<STRING>",
     "\"null\"",
     "<INVALID_LEXICAL>",
     "<INVALID_CONST>",
+    "<INVALID_CHAR>",
   };
 
 }

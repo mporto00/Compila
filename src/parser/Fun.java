@@ -7,7 +7,7 @@ public class Fun implements FunConstants {
 	public static void main(String args []) throws ParseException
   {
     Fun parser = new Fun(System.in);
-    String filename = "file.txt";
+    String filename = "nao-aceitos.txt";
     int i;
     boolean ms = false;
     
@@ -129,6 +129,10 @@ public class Fun implements FunConstants {
         break label_1;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case ASSIGN:
+          jj_consume_token(ASSIGN);
+                 System.out.println("Reconheceu ASSIGN");
+          break;  
       case GT:
           jj_consume_token(GT);
                  System.out.println("Reconheceu GT");
