@@ -107,21 +107,24 @@ TOKEN :
 }
 //RESERVED WORDS
 
-TOKEN : {
- <BREAK: "break">
+TOKEN :
+{
+  <BREAK: "break">
 | <CLASS: "class">
 | <CONSTRUCTOR: "constructor">
 | <ELSE: "else">
 | <EXTENDS: "extends">
 | <FOR: "for">
-|  <IF: "if">
+| <IF: "if">
 | <INT: "int">
 | <NEW: "new">
 | <PRINT: "print">
 | <READ: "read">
 | <RETURN: "return">
 | <SUPER: "super">
+
 /* added*/
+
 | <END: "end">
 | <SUB: "sub">
 | <LET: "let">
@@ -131,17 +134,17 @@ TOKEN : {
 | <INPUT: "input">
 | <SELECT: "select">
 | <STATIC: "static">
-| < WHILE: "while" >
-| < DO: "do" >
-| < SWITCH: "switch" >
-| < DOUBLE: "double" >
-| < BYTE: "byte" >
-| < SHORT: "short" >
-| < LONG: "long" >
-| < FINAL: "final" >
-| < PUBLIC: "public" >
-| < PRIVATE: "private" >
-| < PROTECTED: "protected" >
+| <WHILE: "while" >
+| <DO: "do" >
+| <SWITCH: "switch" >
+| <DOUBLE: "double" >
+| <BYTE: "byte" >
+| <SHORT: "short" >
+| <LONG: "long" >
+| <FINAL: "final" >
+| <PUBLIC: "public" >
+| <PRIVATE: "private" >
+| <PROTECTED: "protected" >
 }
 
 //IDENTIFIER TOKEN
@@ -166,10 +169,8 @@ TOKEN : {
 | <CHAR :"'"~[]"'" | "'\\n'" >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
 | <STRING: "\""( ~["\"","\n","\r"])* "\"" >
-| <NULL: "null" > } 
-/*confirmar possibilidade de /n */
+| <NULL: "null" > }
 
-	
 //TOKEN P/ LANÇAR ERRO LÉXICO
 SPECIAL_TOKEN : {
 <INVALID_LEXICAL:
@@ -207,8 +208,6 @@ SPECIAL_TOKEN : {
 	  	countLexError++;
 	  }
 }
-   
-     
 
 void program() :
 {}
@@ -218,67 +217,66 @@ void program() :
   | <MINUS> { System.out.println("Reconheceu MINUS"); } 
   | <MULTIPLY> { System.out.println("Reconheceu MULTIPLY"); } 
   | <DIVIDE> { System.out.println("Reconheceu DIVIDE"); }
-   | <ASSIGN> { System.out.println("Reconheceu ASSIGN"); }
-   |    <GT> { System.out.println("Reconheceu GT"); } 
+  | <ASSIGN> { System.out.println("Reconheceu ASSIGN"); }
+  | <GT> { System.out.println("Reconheceu GT"); } 
   | <LT> { System.out.println("Reconheceu LT"); } 
   | <EQ> { System.out.println("Reconheceu EQ"); } 
   | <LE> { System.out.println("Reconheceu LE"); }
-   | <GE> { System.out.println("Reconheceu GE"); }
-   |  <NEQ> { System.out.println("Reconheceu NEQ"); } 
+  | <GE> { System.out.println("Reconheceu GE"); }
+  | <NEQ> { System.out.println("Reconheceu NEQ"); } 
   | <REM> { System.out.println("Reconheceu REM"); } 
   | <AND> { System.out.println("Reconheceu AND"); } 
   | <OR> { System.out.println("Reconheceu OR"); }
-   | <XOR> { System.out.println("Reconheceu XOR"); }
-   <NOT> { System.out.println("Reconheceu NOT"); } 
+  | <XOR> { System.out.println("Reconheceu XOR"); }
+  | <NOT> { System.out.println("Reconheceu NOT"); } 
   | <SEMICOLON> { System.out.println("Reconheceu SEMICOLON"); } 
   | <COMMA> { System.out.println("Reconheceu COMMA"); } 
   | <LPAREN> { System.out.println("Reconheceu LPAREN"); }
-   | <RPAREN> { System.out.println("Reconheceu RPAREN"); }
-  |  <LBRACKET> { System.out.println("Reconheceu LBRACKET"); } 
+  | <RPAREN> { System.out.println("Reconheceu RPAREN"); }
+  | <LBRACKET> { System.out.println("Reconheceu LBRACKET"); } 
   | <RBRACKET> { System.out.println("Reconheceu RBRACKET"); } 
   | <LBRACE> { System.out.println("Reconheceu LBRACE"); } 
   | <RBRACE> { System.out.println("Reconheceu RBRACE"); }
-   | <DOT> { System.out.println("Reconheceu DOT"); }
-  |  <BREAK> { System.out.println("Reconheceu BREAK"); } 
+  | <DOT> { System.out.println("Reconheceu DOT"); }
+  | <BREAK> { System.out.println("Reconheceu BREAK"); } 
   | <CLASS> { System.out.println("Reconheceu CLASS"); } 
   | <CONSTRUCTOR> { System.out.println("Reconheceu CONSTRUCTOR"); } 
   | <ELSE> { System.out.println("Reconheceu ELSE"); }
-   | <EXTENDS> { System.out.println("Reconheceu EXTENDS"); }
-     | <FOR> { System.out.println("Reconheceu FOR"); } 
+  | <EXTENDS> { System.out.println("Reconheceu EXTENDS"); }
+  | <FOR> { System.out.println("Reconheceu FOR"); } 
   | <IF> { System.out.println("Reconheceu IF"); } 
   | <INT> { System.out.println("Reconheceu INT"); }
-   | <NEW> { System.out.println("Reconheceu NEW"); }
-      | <PRINT> { System.out.println("Reconheceu PRINT"); }
-     | <READ> { System.out.println("Reconheceu READ"); } 
+  | <NEW> { System.out.println("Reconheceu NEW"); }
+  | <PRINT> { System.out.println("Reconheceu PRINT"); }
+  | <READ> { System.out.println("Reconheceu READ"); } 
   | <RETURN> { System.out.println("Reconheceu RETURN"); } 
   | <STRING> { System.out.println("Reconheceu STRING"); }
-   | <SUPER> { System.out.println("Reconheceu SUPER"); }
-      | <END> { System.out.println("Reconheceu END"); }
-     | <SUB> { System.out.println("Reconheceu SUB"); } 
+  | <SUPER> { System.out.println("Reconheceu SUPER"); }
+  | <END> { System.out.println("Reconheceu END"); }
+  | <SUB> { System.out.println("Reconheceu SUB"); } 
   | <LET> { System.out.println("Reconheceu LET"); } 
   | <CALL> { System.out.println("Reconheceu CALL"); }
-   | <THEN> { System.out.println("Reconheceu THEN"); }
-      | <CASE> { System.out.println("Reconheceu CASE"); }
-     | <INPUT> { System.out.println("Reconheceu INPUT"); } 
+  | <THEN> { System.out.println("Reconheceu THEN"); }
+  | <CASE> { System.out.println("Reconheceu CASE"); }
+  | <INPUT> { System.out.println("Reconheceu INPUT"); } 
   | <SELECT> { System.out.println("Reconheceu SELECT"); } 
   | <STATIC> { System.out.println("Reconheceu STATIC"); }
-   | <WHILE> { System.out.println("Reconheceu WHILE"); }
-      | <DO> { System.out.println("Reconheceu DO"); }
-     | <SWITCH> { System.out.println("Reconheceu SWITCH"); } 
+  | <WHILE> { System.out.println("Reconheceu WHILE"); }
+  | <DO> { System.out.println("Reconheceu DO"); }
+  | <SWITCH> { System.out.println("Reconheceu SWITCH"); } 
   | <DOUBLE> { System.out.println("Reconheceu DOUBLE"); }
-   | <BYTE> { System.out.println("Reconheceu BYTE"); }
-   
-        | <SHORT> { System.out.println("Reconheceu SHORT"); } 
+  | <BYTE> { System.out.println("Reconheceu BYTE"); }
+  | <SHORT> { System.out.println("Reconheceu SHORT"); } 
   | <LONG> { System.out.println("Reconheceu LONG"); } 
   | <FINAL> { System.out.println("Reconheceu FINAL"); }
-   | <PUBLIC> { System.out.println("Reconheceu PUBLIC"); }
-        | <PRIVATE> { System.out.println("Reconheceu PRIVATE"); } 
+  | <PUBLIC> { System.out.println("Reconheceu PUBLIC"); }
+  | <PRIVATE> { System.out.println("Reconheceu PRIVATE"); } 
   | <PROTECTED> { System.out.println("Reconheceu PROTECTED"); } 
-   | <CONSTANT> { System.out.println("Reconheceu CONSTANT"); }
-        | <IDENTIFIER> { System.out.println("Reconheceu IDENTIFIER"); } 
+  | <CONSTANT> { System.out.println("Reconheceu CONSTANT"); }
+  | <IDENTIFIER> { System.out.println("Reconheceu IDENTIFIER"); } 
   | <FLOAT> { System.out.println("Reconheceu FLOAT"); }
-   | <BOOLEAN> { System.out.println("Reconheceu BOOLEAN"); }
-        | <CHAR> { System.out.println("Reconheceu CHAR"); } 
+  | <BOOLEAN> { System.out.println("Reconheceu BOOLEAN"); }
+  | <CHAR> { System.out.println("Reconheceu CHAR"); } 
   | <INTEGER> { System.out.println("Reconheceu INTEGER"); } 
   )*
 }

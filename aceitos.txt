@@ -1,0 +1,70 @@
+/* 
+
+TOKENS ACEITOS
+
+*/
+
+// NUMERICOS
+
+123
+0.3
+222.32312
+0
+A1FH
+001B
+112O
+0.1A2h
+001.010b
+112.123o
+
+// PROGRAMA TESTE TOKENS ACEITOS
+public class programateste01 extends programa2 {
+
+	final byte variavel2 = 5;
+    private final short variavel4 = 10;
+    protected variavel = new Variavel();
+    static let variavel3;
+    int vara;
+    short varb;
+    long varc[];
+    double vard;
+    while(vara > varb) {
+    	.then (
+    		call(sub(10, 2));
+    		end;
+    	)
+    }
+    
+    public constructor () {
+    	super();
+    }
+    switch (testeSwitch) {
+		case 1:
+		input;
+		case 2
+		do;
+		case 3
+		select;
+	}
+	
+	for (cont = 0; cont < variavel1; cont = (cont + 1)) {
+            for(cont2 = 0; cont2 > variavel2; cont2 = (cont2 + 1)) {
+                variavel4 = 2.5;
+                read(true);
+            }
+            
+            if (2% == 3) {
+            	if ((1+2) >= 4) {
+                	print("1+2 é, maior que 4");    
+            	} else {	
+                	print("1+2 NÃO é maior que \n 4");   
+                	break; 
+ 	           }
+    	    } else if ((a >= 33 and b <= 321-4) or not(c <= 322*22/2 xor 'a' > 34)) {
+        	        print("");
+        	}
+        	 else if (2 != 3) {
+        	        print("");    
+        	}
+	}
+}
