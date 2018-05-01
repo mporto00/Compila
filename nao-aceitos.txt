@@ -1,9 +1,10 @@
-//!variavel
-%as
 
-=13a&
-||
+"STRIN 
+TESTE"
+
+|
 ¨
 #
 @
 §
+!variavel
