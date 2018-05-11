@@ -4,6 +4,7 @@
 options
 {
   static = false; //Nao criara metodos estaticos
+   DEBUG_LOOKAHEAD = true;
 }
 
 PARSER_BEGIN(Fun)
@@ -11,19 +12,72 @@ package parser;
 
 public class Fun
 {
-  public static void main(String args []) throws ParseException
+   int contParseError = 0;
+   boolean Menosshort = false; 
+    
+	public static void main(String args []) throws ParseException
   {
+    boolean debug = false;
     Fun parser = new Fun(System.in);
+    String filename = "nao-aceitos.txt";
+    int i;
+    boolean ms = false;
+    
+    /*for (i=0 ; i < args.length - 1 ; i++) {
+    	if ( args[i].toLowerCase().equals("-short"))
+    		ms = true;
+    	else {
+    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
+    		System.exit(0);
+    	}
+    }*/
+    //if (args[i].equals("-"))
+    if (false)
+    {
+    	System.out.println("Lendo entrada padrão..");
+    	parser = new Fun(System.in);
+   
+    } else
+    {
+    	//filename = args[args.length-1];
+    	//filename = args[args.length-1];
+    	System.out.println("Lendo do arquivo " +  filename);
+    	try {
+    		parser = new Fun (new java.io.FileInputStream(filename) );
+    	} catch (java.io.FileNotFoundException e) {
+    		System.out.println("Arquivo " + filename + " não encontrado.");
+    		return;
+    	}  	
+    }
+    
+     parser.debug_recovery = debug_recovery;
+     if (!debug) parser.disable_tracing(); // desabilita verbose do AS
+       try {
+               parser.program();   // chama o método que faz a análise
+       }
+       catch (ParseEOFException e)
+       {
+           System.err.println(e.getMessage());
+       parser.contParseError = 1;  //  não existe recuperação de erros
+       }
+       finally {
+           System.out.println(parser.token_source.foundLexError() + " erros léxico encontrados");
+           System.out.println(parser.contParseError + "erros sintáticos encontrados");
+       }
 
-	try { 
-    	parser.program();
-    	System.out.println("Sucesso!");
-  	} catch (ParseException e) {
-  		System.out.println(e);
-  	} catch (TokenMgrError e) {
-  	  	System.out.println(e);
-  	}
-  }
+    
+	}
+	static public String im(int x)
+        {
+            int k;
+            String s;
+            s = tokenImage[x];
+            k = s.lastIndexOf("\"");
+            try {s = s.substring(1,k);}
+            catch (StringIndexOutOfBoundsException e)
+            {}
+            return s;
+        }
 }
 
 PARSER_END(Fun)
@@ -123,41 +177,17 @@ TOKEN :
 | <RETURN: "return">
 | <SUPER: "super">
 
-/* added*/
-
-| <END: "end">
-| <SUB: "sub">
-| <LET: "let">
-| <CALL: "call">
-| <THEN: "then">
-| <CASE: "case">
-| <INPUT: "input">
-| <SELECT: "select">
-| <STATIC: "static">
-| <WHILE: "while" >
-| <DO: "do" >
-| <SWITCH: "switch" >
-| <DOUBLE: "double" >
-| <BYTE: "byte" >
-| <SHORT: "short" >
-| <LONG: "long" >
-| <FINAL: "final" >
-| <PUBLIC: "public" >
-| <PRIVATE: "private" >
-| <PROTECTED: "protected" >
 }
 
 //IDENTIFIER TOKEN
 
 TOKEN : /* CONSTANTES NUMERICAS */
 {
-		< FLOAT: <INTEGER> "." ( <INTEGER> )+
-    	>
+		< FLOAT: <INTEGER> "." ( <INTEGER> )+ >
   | 	< INTEGER: ( <DIGIT> )+
   |     (["0"-"7"] (["0"-"7"])* ["o", "O"] ) 
   |     ((<DIGIT> | ["A"-"F","a"-"f"])* ["h", "H"] )
-  |     (["0"-"1"] (["0"-"1"])* ["b", "B"])  
-  >
+  |     (["0"-"1"] (["0"-"1"])* ["b", "B"]) >
   | 	< #DIGIT: ["0" - "9"] >
 }
 
@@ -169,7 +199,8 @@ TOKEN : {
 | <CHAR :"'"~[]"'" | "'\\n'" >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
 | <STRING: "\""( ~["\"","\n","\r"])* "\"" >
-| <NULL: "null" > }
+| <NULL: "null" >
+}
 
 //TOKEN P/ LANÇAR ERRO LÉXICO
 SPECIAL_TOKEN : {
@@ -207,7 +238,26 @@ SPECIAL_TOKEN : {
 	    System.err.println("Line " + input_stream.getEndLine() + " - String constant has a \\n: " + image);
 	  	countLexError++;
 	  }
+| < INVALID_CHAR:
+	"'" (~ ["\n","\r","'"])* ["\n","\r"] > {
+	    System.err.println("Line " + input_stream.getEndLine() + " - Char constant has a \\n: " + image);
+	  	countLexError++;
+	  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void program() :
 {}
@@ -251,27 +301,7 @@ void program() :
   | <READ> { System.out.println("Reconheceu READ"); } 
   | <RETURN> { System.out.println("Reconheceu RETURN"); } 
   | <STRING> { System.out.println("Reconheceu STRING"); }
-  | <SUPER> { System.out.println("Reconheceu SUPER"); }
-  | <END> { System.out.println("Reconheceu END"); }
-  | <SUB> { System.out.println("Reconheceu SUB"); } 
-  | <LET> { System.out.println("Reconheceu LET"); } 
-  | <CALL> { System.out.println("Reconheceu CALL"); }
-  | <THEN> { System.out.println("Reconheceu THEN"); }
-  | <CASE> { System.out.println("Reconheceu CASE"); }
-  | <INPUT> { System.out.println("Reconheceu INPUT"); } 
-  | <SELECT> { System.out.println("Reconheceu SELECT"); } 
-  | <STATIC> { System.out.println("Reconheceu STATIC"); }
-  | <WHILE> { System.out.println("Reconheceu WHILE"); }
-  | <DO> { System.out.println("Reconheceu DO"); }
-  | <SWITCH> { System.out.println("Reconheceu SWITCH"); } 
-  | <DOUBLE> { System.out.println("Reconheceu DOUBLE"); }
-  | <BYTE> { System.out.println("Reconheceu BYTE"); }
-  | <SHORT> { System.out.println("Reconheceu SHORT"); } 
-  | <LONG> { System.out.println("Reconheceu LONG"); } 
-  | <FINAL> { System.out.println("Reconheceu FINAL"); }
-  | <PUBLIC> { System.out.println("Reconheceu PUBLIC"); }
-  | <PRIVATE> { System.out.println("Reconheceu PRIVATE"); } 
-  | <PROTECTED> { System.out.println("Reconheceu PROTECTED"); } 
+  | <SUPER> { System.out.println("Reconheceu SUPER"); } 
   | <CONSTANT> { System.out.println("Reconheceu CONSTANT"); }
   | <IDENTIFIER> { System.out.println("Reconheceu IDENTIFIER"); } 
   | <FLOAT> { System.out.println("Reconheceu FLOAT"); }
@@ -279,4 +309,78 @@ void program() :
   | <CHAR> { System.out.println("Reconheceu CHAR"); } 
   | <INTEGER> { System.out.println("Reconheceu INTEGER"); } 
   )*
+}
+void classlist():
+{
+}
+{
+   classdecl()[classlist()]
+}
+
+void classdecl() :
+{
+}
+{
+  <CLASS> <IDENTIFIER> [ <EXTENDS> <IDENTIFIER> ] classbody()
+}
+
+void classbody() :
+{
+}
+{
+    <LBRACE>
+      [classlist()]
+      (LOOKAHEAD(3) vardecl() <SEMICOLON>)*
+      (constructdecl())*
+      (methoddecl())* 
+   <RBRACE>
+}
+
+void vardecl() :
+{
+}
+{
+  types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* 
+  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* 
+}
+
+void constructdecl():
+{
+}
+{
+    <CONSTRUCTOR> methodbody()
+}
+
+//SIMPLIFICAÇÃO DE CODIGO, SE VC ESTIVER LENDO ISSO PROFESSOR, NAO DESCONTE 1 PONTO NOSSO. ATT, A DIREÇAO
+void types() :
+{
+}
+{
+  ( <INTEGER> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>) 
+}
+
+void methoddecl():
+{
+}
+{
+   types() (<LBRACKET> <RBRACKET>)* 
+   <IDENTIFIER> methodbody()
+}
+
+void methodbody():
+{
+}
+{
+    <LPAREN> paramlist() <RPAREN> statement()
+
+}
+
+void paramlist():
+{
+}
+{
+   [
+    types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* 
+    (<COMMA> types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* )*
+   ]
 }
