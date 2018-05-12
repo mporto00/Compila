@@ -1,14 +1,12 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */
 options
 {
   static = false; //Nao criara metodos estaticos
-   DEBUG_LOOKAHEAD = true;
+  DEBUG_LOOKAHEAD = true;
 }
 
 PARSER_BEGIN(Fun)
 package parser;
+import java.io.*;
 
 public class Fun
 {
@@ -19,7 +17,7 @@ public class Fun
   {
     boolean debug = false;
     Fun parser = new Fun(System.in);
-    String filename = "nao-aceitos.txt";
+    String filename = "file.txt";
     int i;
     boolean ms = false;
     
@@ -50,19 +48,19 @@ public class Fun
     	}  	
     }
     
-     parser.debug_recovery = debug_recovery;
+     //parser.debug_recovery = debug_recovery;
      if (!debug) parser.disable_tracing(); // desabilita verbose do AS
        try {
                parser.program();   // chama o método que faz a análise
        }
-       catch (ParseEOFException e)
+       catch (ParseException e)
        {
            System.err.println(e.getMessage());
        parser.contParseError = 1;  //  não existe recuperação de erros
        }
        finally {
            System.out.println(parser.token_source.foundLexError() + " erros léxico encontrados");
-           System.out.println(parser.contParseError + "erros sintáticos encontrados");
+           System.out.println(parser.contParseError + " erros sintáticos encontrados");
        }
 
     
@@ -170,21 +168,24 @@ TOKEN :
 | <EXTENDS: "extends">
 | <FOR: "for">
 | <IF: "if">
-| <INT: "int">
 | <NEW: "new">
 | <PRINT: "print">
 | <READ: "read">
 | <RETURN: "return">
 | <SUPER: "super">
-
+| <INT: "int">
+| <STRING: "string">
+| <FLOAT: "float">
+| <BOOLEAN: "boolean">
+| <CHAR: "char">
 }
 
 //IDENTIFIER TOKEN
 
 TOKEN : /* CONSTANTES NUMERICAS */
 {
-		< FLOAT: <INTEGER> "." ( <INTEGER> )+ >
-  | 	< INTEGER: ( <DIGIT> )+
+		< float_constant: <int_constant> "." ( <int_constant> )+ >
+  | 	< int_constant: ( <DIGIT> )+
   |     (["0"-"7"] (["0"-"7"])* ["o", "O"] ) 
   |     ((<DIGIT> | ["A"-"F","a"-"f"])* ["h", "H"] )
   |     (["0"-"1"] (["0"-"1"])* ["b", "B"]) >
@@ -195,11 +196,13 @@ TOKEN : {
   
   <#LETTER: (["a"-"z","A"-"Z"])> 
 | <CONSTANT : (< DIGIT >)+ >
-| <BOOLEAN: "true" | "false" | "TRUE" | "FALSE">
-| <CHAR :"'"~[]"'" | "'\\n'" >
+| <boolean_constant: <TRUE> | <FALSE>  >
+| <char_constant :"'"~[]"'" | "'\\n'" >
 | <IDENTIFIER: <LETTER>(<LETTER>|<DIGIT>)*(["$"])?>
-| <STRING: "\""( ~["\"","\n","\r"])* "\"" >
-| <NULL: "null" >
+| <string_constant: "\""( ~["\"","\n","\r"])* "\"" >
+| <#TRUE: "true" | "TRUE" >
+| <#FALSE: "false" | "FALSE" >
+| <null_constant: "null" >
 }
 
 //TOKEN P/ LANÇAR ERRO LÉXICO
@@ -247,21 +250,11 @@ SPECIAL_TOKEN : {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 void program() :
 {}
 {
+  [ classlist()] <EOF >
+  /*
   (
     <PLUS> { System.out.println("Reconheceu PLUS"); } 
   | <MINUS> { System.out.println("Reconheceu MINUS"); } 
@@ -308,7 +301,7 @@ void program() :
   | <BOOLEAN> { System.out.println("Reconheceu BOOLEAN"); }
   | <CHAR> { System.out.println("Reconheceu CHAR"); } 
   | <INTEGER> { System.out.println("Reconheceu INTEGER"); } 
-  )*
+  )**/
 }
 void classlist():
 {
@@ -340,8 +333,11 @@ void vardecl() :
 {
 }
 {
-  types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* 
-  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* 
+  /*types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* 
+  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* */
+
+  types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment())?
+  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* (LOOKAHEAD(1) assignment())?
 }
 
 void constructdecl():
@@ -356,7 +352,7 @@ void types() :
 {
 }
 {
-  ( <INTEGER> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>) 
+  ( <INT> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>) 
 }
 
 void methoddecl():
@@ -383,4 +379,177 @@ void paramlist():
     types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* 
     (<COMMA> types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* )*
    ]
+}
+
+void statement() :
+{
+}
+{
+    LOOKAHEAD(2)
+    vardecl() <SEMICOLON>
+|
+    atribstat() <SEMICOLON> 
+|
+    printstat() <SEMICOLON>
+|
+    readstat() <SEMICOLON>
+|
+    returnstat() <SEMICOLON>
+|
+    superstat() <SEMICOLON>
+|
+    ifstat() 
+|
+    forstat() 
+|
+    <LBRACE> statlist() <RBRACE> 
+|
+    <BREAK> <SEMICOLON>
+|
+    <SEMICOLON>
+}
+
+void atribstat() :
+{
+}
+{
+    lvalue() assignment()
+}
+
+void printstat() :
+{
+}
+{
+    <PRINT> expression()
+}
+
+void readstat() :
+{
+}
+{
+    <READ> lvalue()
+}
+
+
+void returnstat() :
+{
+}
+{  
+    <RETURN> [expression()]
+}
+
+
+void superstat() :
+{
+}
+{
+    <SUPER> <LPAREN> arglist() <RPAREN>
+}
+
+void ifstat() :
+{
+}
+{
+    <IF> <LPAREN> expression() <RPAREN> statement()
+    [LOOKAHEAD(1) <ELSE> statement()]
+}
+
+
+
+void forstat() :
+{
+}
+{
+    <FOR> <LPAREN> [atribstat()] <SEMICOLON>
+                   [expression()] <SEMICOLON>
+                   [atribstat()] <RPAREN>
+                    statement()
+}
+
+void assignment() :
+{
+}
+{
+    <ASSIGN> (alocexpression() | expression())
+}
+
+void  statlist() :
+{
+}
+{
+   statement() [statlist()]
+}
+
+void lvalue() :
+{
+}
+{
+   <IDENTIFIER> (
+           <LBRACKET> expression() <RBRACKET> |
+           <DOT> <IDENTIFIER> [<LPAREN> arglist() <RPAREN>]
+         )*
+}
+
+void alocexpression() :
+{
+}
+{
+    <NEW> ( 
+             LOOKAHEAD(2) <IDENTIFIER> <LPAREN> arglist() <RPAREN> | 
+             types()
+             (<LBRACKET> expression() <RBRACKET>)+
+          )
+} 
+
+void expression() :
+{
+}
+{
+    numexpr() [( <LT> | <GT> | <LE> | <GE> | <EQ> | <NEQ> | <AND> | <OR> | <XOR>) numexpr()]
+}
+
+void numexpr() :
+{
+}
+{
+    term() ((<PLUS> | <MINUS>) term())*
+}
+
+void term() :
+{
+}
+{
+    unaryexpr() ((<MULTIPLY> | <DIVIDE>| <REM>) unaryexpr())*
+}
+
+void unaryexpr() :
+{
+}
+{
+   [(<PLUS> | <MINUS>)] factor()
+}
+
+
+void factor() :
+{
+}
+{
+
+   (<NOT>)? 
+    ( 
+       <char_constant> |
+       <int_constant> | 
+       <float_constant> | 
+       <string_constant> | 
+       <boolean_constant> |
+       <null_constant> |
+       lvalue() |
+       <LPAREN> expression() <RPAREN>)
+}
+
+void arglist() :
+{
+}
+{
+    [expression() (<COMMA> expression())*]
 }
