@@ -150,17 +150,6 @@ public class Fun implements FunConstants {
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case CONSTRUCTOR:
-          ;
-          break;
-        default:
-          jj_la1[4] = jj_gen;
-          break label_2;
-        }
-        constructdecl();
-      }
-      label_3:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case INT:
         case STRING:
         case FLOAT:
@@ -170,10 +159,26 @@ public class Fun implements FunConstants {
           ;
           break;
         default:
-          jj_la1[5] = jj_gen;
-          break label_3;
+          jj_la1[4] = jj_gen;
+          break label_2;
         }
-        methoddecl();
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case CONSTRUCTOR:
+          constructdecl();
+          break;
+        case INT:
+        case STRING:
+        case FLOAT:
+        case BOOLEAN:
+        case CHAR:
+        case IDENTIFIER:
+          methoddecl();
+          break;
+        default:
+          jj_la1[5] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
       }
       jj_consume_token(RBRACE);
     } finally {
@@ -186,7 +191,7 @@ public class Fun implements FunConstants {
     try {
       types();
       jj_consume_token(IDENTIFIER);
-      label_4:
+      label_3:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case LBRACKET:
@@ -194,7 +199,7 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[6] = jj_gen;
-          break label_4;
+          break label_3;
         }
         jj_consume_token(LBRACKET);
         jj_consume_token(RBRACKET);
@@ -207,7 +212,7 @@ public class Fun implements FunConstants {
         jj_la1[7] = jj_gen;
         ;
       }
-      label_5:
+      label_4:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case COMMA:
@@ -215,11 +220,11 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[8] = jj_gen;
-          break label_5;
+          break label_4;
         }
         jj_consume_token(COMMA);
         jj_consume_token(IDENTIFIER);
-        label_6:
+        label_5:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case LBRACKET:
@@ -227,7 +232,7 @@ public class Fun implements FunConstants {
             break;
           default:
             jj_la1[9] = jj_gen;
-            break label_6;
+            break label_5;
           }
           jj_consume_token(LBRACKET);
           jj_consume_token(RBRACKET);
@@ -293,7 +298,7 @@ public class Fun implements FunConstants {
     trace_call("methoddecl");
     try {
       types();
-      label_7:
+      label_6:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case LBRACKET:
@@ -301,7 +306,7 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[12] = jj_gen;
-          break label_7;
+          break label_6;
         }
         jj_consume_token(LBRACKET);
         jj_consume_token(RBRACKET);
@@ -337,7 +342,7 @@ public class Fun implements FunConstants {
       case IDENTIFIER:
         types();
         jj_consume_token(IDENTIFIER);
-        label_8:
+        label_7:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case LBRACKET:
@@ -345,12 +350,12 @@ public class Fun implements FunConstants {
             break;
           default:
             jj_la1[13] = jj_gen;
-            break label_8;
+            break label_7;
           }
           jj_consume_token(LBRACKET);
           jj_consume_token(RBRACKET);
         }
-        label_9:
+        label_8:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case COMMA:
@@ -358,12 +363,12 @@ public class Fun implements FunConstants {
             break;
           default:
             jj_la1[14] = jj_gen;
-            break label_9;
+            break label_8;
           }
           jj_consume_token(COMMA);
           types();
           jj_consume_token(IDENTIFIER);
-          label_10:
+          label_9:
           while (true) {
             switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
             case LBRACKET:
@@ -371,7 +376,7 @@ public class Fun implements FunConstants {
               break;
             default:
               jj_la1[15] = jj_gen;
-              break label_10;
+              break label_9;
             }
             jj_consume_token(LBRACKET);
             jj_consume_token(RBRACKET);
@@ -649,7 +654,7 @@ public class Fun implements FunConstants {
     trace_call("lvalue");
     try {
       jj_consume_token(IDENTIFIER);
-      label_11:
+      label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case LBRACKET:
@@ -658,7 +663,7 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[25] = jj_gen;
-          break label_11;
+          break label_10;
         }
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case LBRACKET:
@@ -709,7 +714,7 @@ public class Fun implements FunConstants {
         case CHAR:
         case IDENTIFIER:
           types();
-          label_12:
+          label_11:
           while (true) {
             jj_consume_token(LBRACKET);
             expression();
@@ -720,7 +725,7 @@ public class Fun implements FunConstants {
               break;
             default:
               jj_la1[28] = jj_gen;
-              break label_12;
+              break label_11;
             }
           }
           break;
@@ -797,7 +802,7 @@ public class Fun implements FunConstants {
     trace_call("numexpr");
     try {
       term();
-      label_13:
+      label_12:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case PLUS:
@@ -806,7 +811,7 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[32] = jj_gen;
-          break label_13;
+          break label_12;
         }
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case PLUS:
@@ -831,7 +836,7 @@ public class Fun implements FunConstants {
     trace_call("term");
     try {
       unaryexpr();
-      label_14:
+      label_13:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case MULTIPLY:
@@ -841,7 +846,7 @@ public class Fun implements FunConstants {
           break;
         default:
           jj_la1[34] = jj_gen;
-          break label_14;
+          break label_13;
         }
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case MULTIPLY:
@@ -958,7 +963,7 @@ public class Fun implements FunConstants {
       case string_constant:
       case null_constant:
         expression();
-        label_15:
+        label_14:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case COMMA:
@@ -966,7 +971,7 @@ public class Fun implements FunConstants {
             break;
           default:
             jj_la1[40] = jj_gen;
-            break label_15;
+            break label_14;
           }
           jj_consume_token(COMMA);
           expression();
@@ -1002,48 +1007,54 @@ public class Fun implements FunConstants {
     finally { jj_save(2, xla); }
   }
 
-  private boolean jj_3R_20() {
+  private boolean jj_3R_19() {
     if (jj_scan_token(COMMA)) return true;
     return false;
   }
 
-  private boolean jj_3R_19() {
-    if (jj_3R_22()) return true;
+  private boolean jj_3R_18() {
+    if (jj_3R_21()) return true;
     return false;
   }
 
-  private boolean jj_3R_16() {
+  private boolean jj_3R_15() {
     if (!jj_rescan) trace_call("vardecl(LOOKING AHEAD...)");
-    if (jj_3R_17()) { if (!jj_rescan) trace_return("vardecl(LOOKAHEAD FAILED)"); return true; }
+    if (jj_3R_16()) { if (!jj_rescan) trace_return("vardecl(LOOKAHEAD FAILED)"); return true; }
     if (jj_scan_token(IDENTIFIER)) { if (!jj_rescan) trace_return("vardecl(LOOKAHEAD FAILED)"); return true; }
     Token xsp;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3R_18()) { jj_scanpos = xsp; break; }
+      if (jj_3R_17()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_3R_19()) jj_scanpos = xsp;
+    if (jj_3R_18()) jj_scanpos = xsp;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3R_20()) { jj_scanpos = xsp; break; }
+      if (jj_3R_19()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_3R_21()) jj_scanpos = xsp;
+    if (jj_3R_20()) jj_scanpos = xsp;
     { if (!jj_rescan) trace_return("vardecl(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3R_18() {
+  private boolean jj_3R_17() {
     if (jj_scan_token(LBRACKET)) return true;
     return false;
   }
 
-  private boolean jj_3R_22() {
+  private boolean jj_3R_21() {
     if (!jj_rescan) trace_call("assignment(LOOKING AHEAD...)");
     if (jj_scan_token(ASSIGN)) { if (!jj_rescan) trace_return("assignment(LOOKAHEAD FAILED)"); return true; }
     { if (!jj_rescan) trace_return("assignment(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3R_17() {
+  private boolean jj_3_1() {
+    if (jj_3R_15()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
     if (!jj_rescan) trace_call("types(LOOKING AHEAD...)");
     Token xsp;
     xsp = jj_scanpos;
@@ -1066,25 +1077,19 @@ public class Fun implements FunConstants {
     { if (!jj_rescan) trace_return("types(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3_1() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    return false;
-  }
-
   private boolean jj_3_3() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
-  private boolean jj_3R_21() {
-    if (jj_3R_22()) return true;
+  private boolean jj_3R_20() {
+    if (jj_3R_21()) return true;
     return false;
   }
 
   private boolean jj_3_2() {
-    if (jj_3R_16()) return true;
+    if (jj_3R_15()) return true;
     return false;
   }
 
@@ -1112,7 +1117,7 @@ public class Fun implements FunConstants {
       jj_la1_0 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1000,0x20000000,0x0,0x1000,0x0,0x0,0x0,0x20000000,0x0,0x0,0x10000000,0x48180000,0x0,0x0,0x48180000,0x0,0x48180000,0x10000000,0x0,0x40000000,0x0,0x0,0x0,0x707e000,0x707e000,0x180000,0x180000,0xe00000,0xe00000,0x180000,0x180000,0x8000000,0x40000000,0x20000000,0x48180000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x40,0x40,0x200,0x40,0x80,0x203e0000,0x1,0x0,0x0,0x1,0x0,0x203e0000,0x1,0x1,0x0,0x1,0x203e0000,0x2001ec24,0x78c00000,0x100,0x20000000,0x78c00000,0x20000000,0x78c01000,0x203fec24,0x11,0x0,0x11,0x1,0x203e0000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x78c00000,0x0,0x78c00000,};
+      jj_la1_1 = new int[] {0x40,0x40,0x200,0x40,0x203e0080,0x203e0080,0x1,0x0,0x0,0x1,0x0,0x203e0000,0x1,0x1,0x0,0x1,0x203e0000,0x2001ec24,0x78c00000,0x100,0x20000000,0x78c00000,0x20000000,0x78c01000,0x203fec24,0x11,0x0,0x11,0x1,0x203e0000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x78c00000,0x0,0x78c00000,};
    }
    private static void jj_la1_init_2() {
       jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x2,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x2,};
