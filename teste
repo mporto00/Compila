@@ -2,14 +2,15 @@ class A {
 int a = 5 ;
 
 int a (int a1, int a2, int a3 = "2" ) {
-if ((a >= 33) and ((b <= 321+4) or true)) {
-a = 1;
+
+int a = 1;
 }
 
+int b = 2;
 
-}
+
 constructor  (int a) {
-A = 2 < 'a';
+a = 2 > 'a';
 }
 
 }
