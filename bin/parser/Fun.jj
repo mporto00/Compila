@@ -17,7 +17,7 @@ public class Fun
   {
     boolean debug = false;
     Fun parser = new Fun(System.in);
-    String filename = "file.txt";
+    String filename = "teste";
     int i;
     boolean ms = false;
     
@@ -375,8 +375,9 @@ void paramlist():
 }
 {
    [
-    types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* 
-    (<COMMA> types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* )*
+    types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)*(LOOKAHEAD(1) assignment())?
+    (<COMMA> types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment())?)* 
+	
    ]
 }
 
