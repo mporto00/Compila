@@ -6,77 +6,158 @@ options
 
 PARSER_BEGIN(Fun)
 package parser;
+
 import java.io.*;
+import recovery.*; // importa as classes de recuperacao	de erros do AS
 
 public class Fun
 {
-   int contParseError = 0;
-   boolean Menosshort = false; 
+   int contParseError = 0; // contador de erros sintaticos
+   boolean debug_recovery; // controla verbose de recuperacao de erros
+   boolean Menosshort = false;
+   Token lastError = null;
     
-	public static void main(String args []) throws ParseException
-  {
-    boolean debug = false;
-    Fun parser = new Fun(System.in);
-    String filename = "teste";
-    int i;
-    boolean ms = false;
-    
-    /*for (i=0 ; i < args.length - 1 ; i++) {
-    	if ( args[i].toLowerCase().equals("-short"))
-    		ms = true;
-    	else {
-    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
-    		System.exit(0);
-    	}
-    }*/
-    //if (args[i].equals("-"))
-    if (false)
-    {
-    	System.out.println("Lendo entrada padrão..");
-    	parser = new Fun(System.in);
-   
-    } else
-    {
-    	//filename = args[args.length-1];
-    	//filename = args[args.length-1];
-    	System.out.println("Lendo do arquivo " +  filename);
-    	try {
-    		parser = new Fun (new java.io.FileInputStream(filename) );
-    	} catch (java.io.FileNotFoundException e) {
-    		System.out.println("Arquivo " + filename + " não encontrado.");
-    		return;
-    	}  	
-    }
-    
-     //parser.debug_recovery = debug_recovery;
-     if (!debug) parser.disable_tracing(); // desabilita verbose do AS
-       try {
-               parser.program();   // chama o método que faz a análise
-       }
-       catch (ParseException e)
-       {
-           System.err.println(e.getMessage());
-       parser.contParseError = 1;  //  não existe recuperação de erros
-       }
-       finally {
-           System.out.println(parser.token_source.foundLexError() + " erros léxico encontrados");
-           System.out.println(parser.contParseError + " erros sintáticos encontrados");
-       }
-
-    
-	}
-	static public String im(int x)
-        {
-            int k;
-            String s;
-            s = tokenImage[x];
-            k = s.lastIndexOf("\"");
-            try {s = s.substring(1,k);}
-            catch (StringIndexOutOfBoundsException e)
-            {}
-            return s;
-        }
+	public static void main(String args []) throws ParseException {
+	    boolean debug_as = false;
+	    boolean debug_recovery = false;
+	    
+	    boolean debug = false;
+	    Fun parser = new Fun(System.in);
+	    String filename = "aceitos.txt";
+	    int i;
+	    boolean ms = false;   
+	
+	    for (i=0 ; i < args.length - 1 ; i++) {
+	
+			if ( args[i].equals("-debug_AS")) 
+				debug_as = true;
+			else
+			if (args[i].equals("-debug_recovery")) 
+				debug_recovery = true;
+			 else {
+				System.out.println("Metodo de uso e: Java LangFun [-debug_AS]" + "[-debug_recovery] inputfile");
+				System.exit(0);
+			}
+		}
+	/*
+	    	if ( args[i].toLowerCase().equals("-short"))
+	    		ms = true;
+	    	else {
+	    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
+	    		System.exit(0);
+	    	}
+	    }
+	*/
+		// lê entrada padrao
+		// if (args[i].equals("-")) {
+		  if (false) { 
+			System.out.println("Lendo entrada padrao..");
+			parser = new Fun(System.in); // cria AS
+		}
+		// lê do arquivo
+		else {
+		    //filename = args[args.length-1];
+			System.out.println("Lendo do arquivo " +  filename);
+	    	try {
+	    		parser = new Fun (new java.io.FileInputStream(filename) );
+	    	} catch (java.io.FileNotFoundException e) {
+	    		System.out.println("Arquivo " + filename + " nao encontrado.");
+	    		return;
+	    	}
+		}
+		/*
+	    //if (args[i].equals("-"))
+	    if (false)
+	    {
+	    	System.out.println("Lendo entrada padrão..");
+	    	parser = new Fun(System.in);
+	   
+	    } else
+	    {
+	    	//filename = args[args.length-1];
+	    	//filename = args[args.length-1];
+	    	System.out.println("Lendo do arquivo " +  filename);
+	    	try {
+	    		parser = new Fun (new java.io.FileInputStream(filename) );
+	    	} catch (java.io.FileNotFoundException e) {
+	    		System.out.println("Arquivo " + filename + " não encontrado.");
+	    		return;
+	    	}  	
+	    }
+	    */
+	
+	     parser.debug_recovery = debug_recovery;
+	     if (!debug_as) parser.disable_tracing(); // desabilita verbose do AS
+	     try {
+	       	parser.program();   // chama o método que faz a análise
+	     }
+	     catch (ParseEOFException e)
+	     {
+	           System.err.println(e.getMessage());
+	       //parser.contParseError = 1;  //  não existe recuperação de erros
+	       }
+	       finally {
+	           System.out.println(parser.token_source.foundLexError() + " erros lexico encontrados");
+	           System.out.println(parser.contParseError + " erros sintaticos encontrados");
+	       }
+	} // main
+	
+static public String im(int x) {
+	int k;
+    String s;
+    s = tokenImage[x];
+    k = s.lastIndexOf("\"");
+    try {s = s.substring(1,k);}
+    catch (StringIndexOutOfBoundsException e)
+    {}
+    return s;
 }
+
+boolean eof;	// variavel que indica se o EOF foi alcançado
+// o metodo abaixo consome tokens ate alcançar um que pertença
+// ao conjunto de sincronizaçao
+
+void consumeUntil (RecoverySet g,
+				   ParseException e,
+				   String met) throws ParseEOFException,
+				   					  ParseException {
+	Token tok;
+
+	// informacao sobre a recuperacao
+	if ( debug_recovery ) {
+		System.out.println();
+		System.out.println("*** " + met + " ***");
+		System.out.println("	Syncronizing Set: " + g);
+	}
+	if ( g == null ) throw e; // se conjunto e null propaga a excecao
+	tok = getToken(1); // pega token corrente
+
+	// se nao chegou no fim do arquivo
+	while ( !eof ) {
+		// achou um token no conjunto
+		if ( g.contains(tok.kind )) {
+			if (debug_recovery ) 
+				System.out.println("	Found Syncronizing token: " + im(tok.kind));
+				break;
+		}
+		if (debug_recovery ) 
+			System.out.println("	Ignoring token: " + im(tok.kind));
+		getNextToken(); // pega proximo token
+		tok = getToken(1);
+
+		// fim da entrada
+		if (tok.kind == EOF && !g.contains(EOF))
+			eof = true;
+	}
+
+	if ( tok != lastError) {
+		System.out.println(e.getMessage());
+		lastError = tok;
+		contParseError++; // incrementa numero de erros
+	}
+	if ( eof ) throw new ParseEOFException ("EOF found prematurely.");
+}
+} // fun
 
 PARSER_END(Fun)
 
@@ -250,279 +331,352 @@ SPECIAL_TOKEN : {
 }
 
 
-void program() :
-{}
+void program() throws ParseEOFException :
 {
-  [ classlist()] <EOF >
-  /*
-  (
-    <PLUS> { System.out.println("Reconheceu PLUS"); } 
-  | <MINUS> { System.out.println("Reconheceu MINUS"); } 
-  | <MULTIPLY> { System.out.println("Reconheceu MULTIPLY"); } 
-  | <DIVIDE> { System.out.println("Reconheceu DIVIDE"); }
-  | <ASSIGN> { System.out.println("Reconheceu ASSIGN"); }
-  | <GT> { System.out.println("Reconheceu GT"); } 
-  | <LT> { System.out.println("Reconheceu LT"); } 
-  | <EQ> { System.out.println("Reconheceu EQ"); } 
-  | <LE> { System.out.println("Reconheceu LE"); }
-  | <GE> { System.out.println("Reconheceu GE"); }
-  | <NEQ> { System.out.println("Reconheceu NEQ"); } 
-  | <REM> { System.out.println("Reconheceu REM"); } 
-  | <AND> { System.out.println("Reconheceu AND"); } 
-  | <OR> { System.out.println("Reconheceu OR"); }
-  | <XOR> { System.out.println("Reconheceu XOR"); }
-  | <NOT> { System.out.println("Reconheceu NOT"); } 
-  | <SEMICOLON> { System.out.println("Reconheceu SEMICOLON"); } 
-  | <COMMA> { System.out.println("Reconheceu COMMA"); } 
-  | <LPAREN> { System.out.println("Reconheceu LPAREN"); }
-  | <RPAREN> { System.out.println("Reconheceu RPAREN"); }
-  | <LBRACKET> { System.out.println("Reconheceu LBRACKET"); } 
-  | <RBRACKET> { System.out.println("Reconheceu RBRACKET"); } 
-  | <LBRACE> { System.out.println("Reconheceu LBRACE"); } 
-  | <RBRACE> { System.out.println("Reconheceu RBRACE"); }
-  | <DOT> { System.out.println("Reconheceu DOT"); }
-  | <BREAK> { System.out.println("Reconheceu BREAK"); } 
-  | <CLASS> { System.out.println("Reconheceu CLASS"); } 
-  | <CONSTRUCTOR> { System.out.println("Reconheceu CONSTRUCTOR"); } 
-  | <ELSE> { System.out.println("Reconheceu ELSE"); }
-  | <EXTENDS> { System.out.println("Reconheceu EXTENDS"); }
-  | <FOR> { System.out.println("Reconheceu FOR"); } 
-  | <IF> { System.out.println("Reconheceu IF"); } 
-  | <INT> { System.out.println("Reconheceu INT"); }
-  | <NEW> { System.out.println("Reconheceu NEW"); }
-  | <PRINT> { System.out.println("Reconheceu PRINT"); }
-  | <READ> { System.out.println("Reconheceu READ"); } 
-  | <RETURN> { System.out.println("Reconheceu RETURN"); } 
-  | <STRING> { System.out.println("Reconheceu STRING"); }
-  | <SUPER> { System.out.println("Reconheceu SUPER"); } 
-  | <CONSTANT> { System.out.println("Reconheceu CONSTANT"); }
-  | <IDENTIFIER> { System.out.println("Reconheceu IDENTIFIER"); } 
-  | <FLOAT> { System.out.println("Reconheceu FLOAT"); }
-  | <BOOLEAN> { System.out.println("Reconheceu BOOLEAN"); }
-  | <CHAR> { System.out.println("Reconheceu CHAR"); } 
-  | <INTEGER> { System.out.println("Reconheceu INTEGER"); } 
-  )**/
-}
-void classlist():
-{
+	RecoverySet g = First.program;
 }
 {
-   classdecl()[classlist()]
+  <EOF>
+|
+	classlist(g)
+  	try { 
+  		<EOF>
+    }
+	catch (ParseException e) {
+		consumeUntil(g, e, "program");
+	}
+	[ program() ]
 }
 
-void classdecl() :
+void classlist(RecoverySet g) throws ParseEOFException :
 {
+RecoverySet f = First.classlist.union(g);
 }
 {
-  <CLASS> <IDENTIFIER> [ <EXTENDS> <IDENTIFIER> ] classbody()
+   classdecl(f)[LOOKAHEAD(2) classlist(g)]
 }
 
-void classbody() :
+void classdecl(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f = new RecoverySet(CLASS).union(g);
 }
 {
+try { 
+  <CLASS> <IDENTIFIER> [ <EXTENDS> <IDENTIFIER> ] classbody(g)
+}
+catch (ParseException e){
+	consumeUntil(g, e, "classdecl");
+}
+}
+
+void classbody(RecoverySet g) throws ParseEOFException :
+{
+  RecoverySet f2 = new RecoverySet(SEMICOLON).union(g).remove(IDENTIFIER),
+  			  f3 = First.methoddecl.union(g).remove(IDENTIFIER),
+  			  f4 = First.constructdecl.union(f3).remove(IDENTIFIER),
+  			  f5 = First.vardecl.union(f4).remove(IDENTIFIER);
+}
+{
+  try { 
     <LBRACE>
-      [classlist()]
-      (LOOKAHEAD(3) vardecl() <SEMICOLON>)*
-      (LOOKAHEAD(3) constructdecl() | LOOKAHEAD(3) methoddecl() | LOOKAHEAD(3) vardecl() <SEMICOLON>)*
+      [classlist(f5)]
+      (LOOKAHEAD(3) vardecl(f2) <SEMICOLON>)*
+      (LOOKAHEAD(3) constructdecl(f4) | LOOKAHEAD(3) methoddecl(f3) | LOOKAHEAD(3) vardecl(f2) <SEMICOLON>)*
    <RBRACE>
+ } catch (ParseException e) {
+		consumeUntil(g, e, "classbody");
+   }
 }
 
-void vardecl() :
+void vardecl(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f = new RecoverySet(IDENTIFIER).union(g);
 }
 {
-  /*types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* 
-  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* */
+ try { 
+  types(f) <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment(g))?
+  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* (LOOKAHEAD(1) assignment(g))?
+}
+catch (ParseException e) {
+	consumeUntil(g, e, "vardecl");
+  }
+}
 
-  types() <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment())?
-  (<COMMA> <IDENTIFIER> ( <LBRACKET> <RBRACKET>)* )* (LOOKAHEAD(1) assignment())?
-}
-
-void constructdecl():
+void constructdecl(RecoverySet g) throws ParseEOFException:
 {
 }
 {
-    <CONSTRUCTOR> methodbody()
+ try {
+    <CONSTRUCTOR> methodbody(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "constructdecl");
+}
 }
 
 //SIMPLIFICAÇÃO DE CODIGO, SE VC ESTIVER LENDO ISSO PROFESSOR, NAO DESCONTE 1 PONTO NOSSO. ATT, A DIREÇAO
-void types() :
+void types(RecoverySet g) throws ParseEOFException :
 {
 }
 {
-  ( <INT> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>) 
-}
-
-void methoddecl():
+ try{
+  ( <INT> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>)
+  }catch (ParseException e)
 {
+   consumeUntil(g, e, "types");
 }
-{
-   types() (<LBRACKET> <RBRACKET>)* 
-   <IDENTIFIER> methodbody()
 }
 
-void methodbody():
+void methoddecl(RecoverySet g) throws ParseEOFException:
 {
+  RecoverySet f = new RecoverySet(IDENTIFIER).union(g);
 }
 {
-    <LPAREN> paramlist() <RPAREN> statement()
+  try {
+   types(f) (<LBRACKET> <RBRACKET>)* 
+   <IDENTIFIER> methodbody(g)
+ }
+  catch (ParseException e)
+  {
+   consumeUntil(g, e, "methoddecl");
+  }
+}
 
+void methodbody(RecoverySet g) throws ParseEOFException :
+{
+  RecoverySet f = new RecoverySet(RPAREN).union(g);
+}
+{
+  try { 
+    <LPAREN> paramlist(f) <RPAREN> statement(g)
+  }
+  catch (ParseException e) {
+		consumeUntil(g, e, "methodbody");
+   }
 }
 
-void paramlist():
+void paramlist(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(IDENTIFIER).union(g);
 }
 {
+  try { 	
    [
-    types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)*(LOOKAHEAD(1) assignment())?
-    (<COMMA> types() <IDENTIFIER> (<LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment())?)* 
+    types(f1) <IDENTIFIER> (<LBRACKET> <RBRACKET>)*(LOOKAHEAD(1) assignment(g))?
+    (<COMMA> types(f1) <IDENTIFIER> (<LBRACKET> <RBRACKET>)* (LOOKAHEAD(1) assignment(g))?)* 
 	
    ]
+ }
+ catch (ParseException e) {
+		consumeUntil(g, e, "paramlist");
+   }
 }
 
-void statement() :
+void statement(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(SEMICOLON).union(g).remove(IDENTIFIER);
+  RecoverySet f2 = new RecoverySet(RBRACE).union(g).remove(IDENTIFIER);
 }
 {
-    LOOKAHEAD(2)
-    vardecl() <SEMICOLON>
+  try { 
+    LOOKAHEAD(<IDENTIFIER> <IDENTIFIER>)
+    vardecl(f1) <SEMICOLON>
 |
-    atribstat() <SEMICOLON> 
+	LOOKAHEAD(1)
+    atribstat(f1) <SEMICOLON> 
 |
-    printstat() <SEMICOLON>
+    printstat(f1) <SEMICOLON>
 |
-    readstat() <SEMICOLON>
+    readstat(f1) <SEMICOLON>
 |
-    returnstat() <SEMICOLON>
+    returnstat(f1) <SEMICOLON>
 |
-    superstat() <SEMICOLON>
+    superstat(f1) <SEMICOLON>
 |
-    ifstat() 
+    ifstat(g) 
 |
-    forstat() 
+    forstat(g) 
 |
-    <LBRACE> statlist() <RBRACE> 
+    <LBRACE> statlist(f2) <RBRACE> 
 |
     <BREAK> <SEMICOLON>
 |
     <SEMICOLON>
+  }
+  catch (ParseException e) {
+		consumeUntil(g, e, "statement");
+  }
 }
 
-void atribstat() :
+void atribstat(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(ASSIGN);
 }
 {
-    lvalue() assignment()
-}
-
-void printstat() :
-{
-}
-{
-    <PRINT> expression()
-}
-
-void readstat() :
-{
-}
-{
-    <READ> lvalue()
+  try { 
+    lvalue(f1) assignment(g)
+  }	
+  catch (ParseException e) {
+		consumeUntil(g, e, "atribstat");
+  }
 }
 
+void printstat(RecoverySet g) throws ParseEOFException :	
+{
+}
+{
+  try { 
+    <PRINT> expression(g)
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "printstat");
+  }
+}
 
-void returnstat() :
+void readstat(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+  try { 
+    <READ> lvalue(g)
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "readstat");
+  }
+}
+
+
+void returnstat(RecoverySet g) throws ParseEOFException :
 {
 }
 {  
-    <RETURN> [expression()]
+  try { 
+    <RETURN> [expression(g)]
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "returnstat");
+  }
 }
 
 
-void superstat() :
+void superstat(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f = new RecoverySet(RPAREN).union(g);
 }
 {
-    <SUPER> <LPAREN> arglist() <RPAREN>
-}
-
-void ifstat() :
-{
-}
-{
-    <IF> <LPAREN> expression() <RPAREN> statement()
-    [LOOKAHEAD(1) <ELSE> statement()]
+  try { 
+    <SUPER> <LPAREN> arglist(f) <RPAREN>
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "superstat");
+  }
 }
 
-
-
-void forstat() :
+void ifstat(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(RPAREN).union(g),
+  			  f2 = new RecoverySet(ELSE).union(g);
 }
 {
-    <FOR> <LPAREN> [atribstat()] <SEMICOLON>
-                   [expression()] <SEMICOLON>
-                   [atribstat()] <RPAREN>
-                    statement()
-}
-
-void assignment() :
-{
-}
-{
-    <ASSIGN> (alocexpression() | expression())
+  try { 
+    <IF> <LPAREN> expression(f1) <RPAREN> statement(f2)
+    [LOOKAHEAD(1) <ELSE> statement(g)]
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "ifstat");
+  }
 }
 
-void  statlist() :
+
+
+void forstat(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(SEMICOLON).union(g),
+  			  f2 = new RecoverySet(RPAREN).union(g);
 }
 {
-   statement() [statlist()]
+  try { 
+    <FOR> <LPAREN> [atribstat(f1)] <SEMICOLON>
+                   [expression(f1)] <SEMICOLON>
+                   [atribstat(f2)] <RPAREN>
+                    statement(g)
+  }
+  catch (ParseException e) {
+	consumeUntil(g, e, "forstat");
+  }
 }
 
-void lvalue() :
+void assignment(RecoverySet g) throws ParseEOFException :
 {
 }
 {
+    <ASSIGN> (alocexpression(g) | expression(g))
+}
+
+void  statlist(RecoverySet g) throws ParseEOFException :
+{
+  RecoverySet f = First.statlist.remove(IDENTIFIER).union(g);
+}
+{
+   statement(f) [statlist(g)]
+}
+
+void lvalue(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+  try { 
    <IDENTIFIER> (
-           <LBRACKET> expression() <RBRACKET> |
-           <DOT> <IDENTIFIER> [<LPAREN> arglist() <RPAREN>]
+           <LBRACKET> expression(null) <RBRACKET> |
+           <DOT> <IDENTIFIER> [<LPAREN> arglist(null) <RPAREN>]
          )*
+  	}
+  	catch (ParseException e) {
+		consumeUntil(g, e, "lvalue");
+  	}
 }
 
-void alocexpression() :
+void alocexpression(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f1 = new RecoverySet(RPAREN).union(g),
+  			  f2 = new RecoverySet(RBRACKET).union(g);
 }
 {
     <NEW> ( 
-             LOOKAHEAD(2) <IDENTIFIER> <LPAREN> arglist() <RPAREN> | 
-             types()
-             (<LBRACKET> expression() <RBRACKET>)+
+             LOOKAHEAD(2) <IDENTIFIER> <LPAREN> arglist(f1) <RPAREN> | 
+             types(g)
+             (<LBRACKET> expression(f2) <RBRACKET>)+
           )
 } 
 
-void expression() :
+void expression(RecoverySet g) throws ParseEOFException :
 {
 }
 {
+  try { 
     numexpr() [( <LT> | <GT> | <LE> | <GE> | <EQ> | <NEQ> | <AND> | <OR> | <XOR>) numexpr()]
+  }
+  catch (ParseException e) {
+		consumeUntil(g, e, "expression");
+  }
 }
 
-void numexpr() :
+void numexpr() throws ParseEOFException :
 {
 }
 {
     term() ((<PLUS> | <MINUS>) term())*
 }
 
-void term() :
+void term() throws ParseEOFException :
 {
 }
 {
     unaryexpr() ((<MULTIPLY> | <DIVIDE>| <REM>) unaryexpr())*
 }
 
-void unaryexpr() :
+void unaryexpr() throws ParseEOFException :
 {
 }
 {
@@ -530,7 +684,7 @@ void unaryexpr() :
 }
 
 
-void factor() :
+void factor() throws ParseEOFException :
 {
 }
 {
@@ -543,13 +697,14 @@ void factor() :
        <string_constant> | 
        <boolean_constant> |
        <null_constant> |
-       lvalue() |
-       <LPAREN> expression() <RPAREN>)
+       lvalue(null) |
+       <LPAREN> expression(null) <RPAREN>)
 }
 
-void arglist() :
+void arglist(RecoverySet g) throws ParseEOFException :
 {
+  RecoverySet f = new RecoverySet(COMMA).union(g);
 }
 {
-    [expression() (<COMMA> expression())*]
+    [expression(f) (<COMMA> expression(f))*]
 }

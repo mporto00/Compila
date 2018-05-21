@@ -1,26 +1,9 @@
-/* 
 
-TOKENS ACEITOS
-
-*/
-
-// NUMERICOS
-
-123
-0.3
-222.32312
-0
-A1FH
-001B
-112O
-0.1A2h
-001.010b
-112.123o
 
 // PROGRAMA TESTE TOKENS ACEITOS
-public class programateste01 extends programa2 {
+class programateste01 extends programa2 {
 
-	final byte variavel2 = 5;
+	 byte variavel2 = 5;
     private final short variavel4 = 10;
     protected variavel = new Variavel();
     static let variavel3;
