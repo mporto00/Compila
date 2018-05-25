@@ -511,7 +511,7 @@ void statement(RecoverySet g) throws ParseEOFException :
 
 void atribstat(RecoverySet g) throws ParseEOFException :
 {
-  RecoverySet f1 = new RecoverySet(ASSIGN);
+  RecoverySet f1 = new RecoverySet(ASSIGN).union(g);
 }
 {
   try { 
