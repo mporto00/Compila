@@ -10,25 +10,22 @@ package parser;
 import java.io.*;
 import recovery.*; // importa as classes de recuperacao	de erros do AS
 
-public class Fun
-{
+public class Fun {
    int contParseError = 0; // contador de erros sintaticos
    boolean debug_recovery; // controla verbose de recuperacao de erros
    boolean Menosshort = false;
    Token lastError = null;
-    
+
 	public static void main(String args []) throws ParseException {
 	    boolean debug_as = false;
 	    boolean debug_recovery = false;
-	    
 	    boolean debug = false;
 	    Fun parser = new Fun(System.in);
-	    String filename = "aceitos.txt";
+	    String filename = "programaaceito4.txt";
 	    int i;
-	    boolean ms = false;   
-	
+	    boolean ms = false;
+	    
 	    for (i=0 ; i < args.length - 1 ; i++) {
-	
 			if ( args[i].equals("-debug_AS")) 
 				debug_as = true;
 			else
@@ -39,15 +36,7 @@ public class Fun
 				System.exit(0);
 			}
 		}
-	/*
-	    	if ( args[i].toLowerCase().equals("-short"))
-	    		ms = true;
-	    	else {
-	    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
-	    		System.exit(0);
-	    	}
-	    }
-	*/
+
 		// lê entrada padrao
 		// if (args[i].equals("-")) {
 		  if (false) { 
@@ -65,27 +54,6 @@ public class Fun
 	    		return;
 	    	}
 		}
-		/*
-	    //if (args[i].equals("-"))
-	    if (false)
-	    {
-	    	System.out.println("Lendo entrada padrão..");
-	    	parser = new Fun(System.in);
-	   
-	    } else
-	    {
-	    	//filename = args[args.length-1];
-	    	//filename = args[args.length-1];
-	    	System.out.println("Lendo do arquivo " +  filename);
-	    	try {
-	    		parser = new Fun (new java.io.FileInputStream(filename) );
-	    	} catch (java.io.FileNotFoundException e) {
-	    		System.out.println("Arquivo " + filename + " não encontrado.");
-	    		return;
-	    	}  	
-	    }
-	    */
-	
 	     parser.debug_recovery = debug_recovery;
 	     if (!debug_as) parser.disable_tracing(); // desabilita verbose do AS
 	     try {
@@ -117,46 +85,42 @@ boolean eof;	// variavel que indica se o EOF foi alcançado
 // o metodo abaixo consome tokens ate alcançar um que pertença
 // ao conjunto de sincronizaçao
 
-void consumeUntil (RecoverySet g,
-				   ParseException e,
-				   String met) throws ParseEOFException,
-				   					  ParseException {
-	Token tok;
+void consumeUntil(RecoverySet g,
+                 ParseException e,
+                 String met) throws ParseEOFException,
+                                    ParseException
+		{
+		Token tok;
 
-	// informacao sobre a recuperacao
-	if ( debug_recovery ) {
-		System.out.println();
-		System.out.println("*** " + met + " ***");
-		System.out.println("	Syncronizing Set: " + g);
-	}
-	if ( g == null ) throw e; // se conjunto e null propaga a excecao
-	tok = getToken(1); // pega token corrente
+		   if ( debug_recovery) { // informação sobre a recuperação 
+		       System.out.println();
+		       System.out.println("*** " + met + " ***");
+		       System.out.println("     Syncronizing Set: " + g);
+		   }
 
-	// se nao chegou no fim do arquivo
-	while ( !eof ) {
-		// achou um token no conjunto
-		if ( g.contains(tok.kind )) {
-			if (debug_recovery ) 
-				System.out.println("	Found Syncronizing token: " + im(tok.kind));
-				break;
+		   if (g == null) throw e; // se o conjunto é null, propaga a exceção
+
+		   tok = getToken(1); // pega token corrente
+		   while ( ! eof ) { // se não chegou ao fim do arquivo
+			if ( g.contains(tok.kind ) ) { //achou um token no conjunto
+			     if ( debug_recovery)
+			       System.out.println("     Found syncronizing token: " + im(tok.kind));
+			     break;
+			}
+			if (debug_recovery)
+			     System.out.println("     Ignoring token: " + im(tok.kind));
+			getNextToken();     // pega próximo token       
+			tok = getToken(1);
+			if (tok.kind == EOF && ! g.contains(EOF) ) // fim da entrada?   
+			    eof = true;
+		    }
+		   if ( tok != lastError) {
+			System.out.println(e.getMessage());
+			lastError = tok;
+			contParseError++;  // incrementa número de erros
+		   }
+		   if ( eof ) throw new ParseEOFException("EOF found prematurely.");
 		}
-		if (debug_recovery ) 
-			System.out.println("	Ignoring token: " + im(tok.kind));
-		getNextToken(); // pega proximo token
-		tok = getToken(1);
-
-		// fim da entrada
-		if (tok.kind == EOF && !g.contains(EOF))
-			eof = true;
-	}
-
-	if ( tok != lastError) {
-		System.out.println(e.getMessage());
-		lastError = tok;
-		contParseError++; // incrementa numero de erros
-	}
-	if ( eof ) throw new ParseEOFException ("EOF found prematurely.");
-}
 } // fun
 
 PARSER_END(Fun)
@@ -353,14 +317,13 @@ void classlist(RecoverySet g) throws ParseEOFException :
 RecoverySet f = First.classlist.union(g);
 }
 {
-   classdecl(f)[LOOKAHEAD(2) classlist(g)]
+   classdecl(f) [LOOKAHEAD(2) classlist(g)]
 }
 
 void classdecl(RecoverySet g) throws ParseEOFException :
 {
-  RecoverySet f = new RecoverySet(CLASS).union(g);
 }
-{
+{	
 try { 
   <CLASS> <IDENTIFIER> [ <EXTENDS> <IDENTIFIER> ] classbody(g)
 }
@@ -415,7 +378,7 @@ catch (ParseException e)
 }
 }
 
-//SIMPLIFICAÇÃO DE CODIGO, SE VC ESTIVER LENDO ISSO PROFESSOR, NAO DESCONTE 1 PONTO NOSSO. ATT, A DIREÇAO
+//SIMPLIFICAÇÃO DE CODIGO
 void types(RecoverySet g) throws ParseEOFException :
 {
 }
@@ -480,7 +443,7 @@ void statement(RecoverySet g) throws ParseEOFException :
 }
 {
   try { 
-    LOOKAHEAD(<IDENTIFIER> <IDENTIFIER>)
+    LOOKAHEAD(4)
     vardecl(f1) <SEMICOLON>
 |
 	LOOKAHEAD(1)
@@ -588,8 +551,6 @@ void ifstat(RecoverySet g) throws ParseEOFException :
   }
 }
 
-
-
 void forstat(RecoverySet g) throws ParseEOFException :
 {
   RecoverySet f1 = new RecoverySet(SEMICOLON).union(g),
@@ -688,7 +649,6 @@ void factor() throws ParseEOFException :
 {
 }
 {
-
    (<NOT>)? 
     ( 
        <char_constant> |

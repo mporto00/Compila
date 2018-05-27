@@ -13,15 +13,13 @@ public class Fun implements FunConstants {
         public static void main(String args []) throws ParseException {
             boolean debug_as = false;
             boolean debug_recovery = false;
-
             boolean debug = false;
             Fun parser = new Fun(System.in);
-            String filename = "aceitos.txt";
+            String filename = "programaaceito4.txt";
             int i;
             boolean ms = false;
 
             for (i=0 ; i < args.length - 1 ; i++) {
-
                         if ( args[i].equals("-debug_AS"))
                                 debug_as = true;
                         else
@@ -32,15 +30,7 @@ public class Fun implements FunConstants {
                                 System.exit(0);
                         }
                 }
-        /*
-	    	if ( args[i].toLowerCase().equals("-short"))
-	    		ms = true;
-	    	else {
-	    		System.out.println("Método de uso é: Java LangFun [-short] inputfile");
-	    		System.exit(0);
-	    	}
-	    }
-	*/
+
                 // lê entrada padrao
                 // if (args[i].equals("-")) {
                   if (false) {
@@ -58,27 +48,6 @@ public class Fun implements FunConstants {
                         return;
                 }
                 }
-                /*
-	    //if (args[i].equals("-"))
-	    if (false)
-	    {
-	    	System.out.println("Lendo entrada padrão..");
-	    	parser = new Fun(System.in);
-	   
-	    } else
-	    {
-	    	//filename = args[args.length-1];
-	    	//filename = args[args.length-1];
-	    	System.out.println("Lendo do arquivo " +  filename);
-	    	try {
-	    		parser = new Fun (new java.io.FileInputStream(filename) );
-	    	} catch (java.io.FileNotFoundException e) {
-	    		System.out.println("Arquivo " + filename + " não encontrado.");
-	    		return;
-	    	}  	
-	    }
-	    */
-
              parser.debug_recovery = debug_recovery;
              if (!debug_as) parser.disable_tracing(); // desabilita verbose do AS
              try {
@@ -110,46 +79,42 @@ boolean eof;    // variavel que indica se o EOF foi alcançado
 // o metodo abaixo consome tokens ate alcançar um que pertença
 // ao conjunto de sincronizaçao
 
-void consumeUntil (RecoverySet g,
-                                   ParseException e,
-                                   String met) throws ParseEOFException,
-                                                                          ParseException {
-        Token tok;
+void consumeUntil(RecoverySet g,
+                 ParseException e,
+                 String met) throws ParseEOFException,
+                                    ParseException
+                {
+                Token tok;
 
-        // informacao sobre a recuperacao
-        if ( debug_recovery ) {
-                System.out.println();
-                System.out.println("*** " + met + " ***");
-                System.out.println("\u0009Syncronizing Set: " + g);
-        }
-        if ( g == null ) throw e; // se conjunto e null propaga a excecao
-        tok = getToken(1); // pega token corrente
+                   if ( debug_recovery) { // informação sobre a recuperação 
+                       System.out.println();
+                       System.out.println("*** " + met + " ***");
+                       System.out.println("     Syncronizing Set: " + g);
+                   }
 
-        // se nao chegou no fim do arquivo
-        while ( !eof ) {
-                // achou um token no conjunto
-                if ( g.contains(tok.kind )) {
-                        if (debug_recovery )
-                                System.out.println("\u0009Found Syncronizing token: " + im(tok.kind));
-                                break;
+                   if (g == null) throw e; // se o conjunto é null, propaga a exceção
+
+                   tok = getToken(1); // pega token corrente
+                   while ( ! eof ) { // se não chegou ao fim do arquivo
+                        if ( g.contains(tok.kind ) ) { //achou um token no conjunto
+                             if ( debug_recovery)
+                               System.out.println("     Found syncronizing token: " + im(tok.kind));
+                             break;
+                        }
+                        if (debug_recovery)
+                             System.out.println("     Ignoring token: " + im(tok.kind));
+                        getNextToken();     // pega próximo token       
+                        tok = getToken(1);
+                        if (tok.kind == EOF && ! g.contains(EOF) ) // fim da entrada?   
+                            eof = true;
+                    }
+                   if ( tok != lastError) {
+                        System.out.println(e.getMessage());
+                        lastError = tok;
+                        contParseError++;  // incrementa número de erros
+                   }
+                   if ( eof ) throw new ParseEOFException("EOF found prematurely.");
                 }
-                if (debug_recovery )
-                        System.out.println("\u0009Ignoring token: " + im(tok.kind));
-                getNextToken(); // pega proximo token
-                tok = getToken(1);
-
-                // fim da entrada
-                if (tok.kind == EOF && !g.contains(EOF))
-                        eof = true;
-        }
-
-        if ( tok != lastError) {
-                System.out.println(e.getMessage());
-                lastError = tok;
-                contParseError++; // incrementa numero de erros
-        }
-        if ( eof ) throw new ParseEOFException ("EOF found prematurely.");
-}
 
   final public void program() throws ParseException, ParseEOFException {
     trace_call("program");
@@ -204,7 +169,6 @@ RecoverySet f = First.classlist.union(g);
   final public void classdecl(RecoverySet g) throws ParseException, ParseEOFException {
     trace_call("classdecl");
     try {
-  RecoverySet f = new RecoverySet(CLASS).union(g);
       try {
         jj_consume_token(CLASS);
         jj_consume_token(IDENTIFIER);
@@ -374,7 +338,7 @@ RecoverySet f = First.classlist.union(g);
     }
   }
 
-//SIMPLIFICAÇÃO DE CODIGO, SE VC ESTIVER LENDO ISSO PROFESSOR, NAO DESCONTE 1 PONTO NOSSO. ATT, A DIREÇAO
+//SIMPLIFICAÇÃO DE CODIGO
   final public void types(RecoverySet g) throws ParseException, ParseEOFException {
     trace_call("types");
     try {
@@ -546,7 +510,7 @@ RecoverySet f = First.classlist.union(g);
   RecoverySet f1 = new RecoverySet(SEMICOLON).union(g).remove(IDENTIFIER);
   RecoverySet f2 = new RecoverySet(RBRACE).union(g).remove(IDENTIFIER);
       try {
-        if (jj_2_6(2147483647)) {
+        if (jj_2_6(4)) {
           vardecl(f1);
           jj_consume_token(SEMICOLON);
         } else {
@@ -606,7 +570,7 @@ RecoverySet f = First.classlist.union(g);
   final public void atribstat(RecoverySet g) throws ParseException, ParseEOFException {
     trace_call("atribstat");
     try {
-  RecoverySet f1 = new RecoverySet(ASSIGN);
+  RecoverySet f1 = new RecoverySet(ASSIGN).union(g);
       try {
         lvalue(f1);
         assignment(g);
@@ -1235,26 +1199,6 @@ RecoverySet f = First.classlist.union(g);
     finally { jj_save(6, xla); }
   }
 
-  private boolean jj_3R_28() {
-    if (!jj_rescan) trace_call("paramlist(LOOKING AHEAD...)");
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_29()) jj_scanpos = xsp;
-    { if (!jj_rescan) trace_return("paramlist(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3_1() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_19() {
-    if (!jj_rescan) trace_call("classdecl(LOOKING AHEAD...)");
-    if (jj_scan_token(CLASS)) { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD FAILED)"); return true; }
-    if (jj_scan_token(IDENTIFIER)) { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD FAILED)"); return true; }
-    { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
   private boolean jj_3R_17() {
     if (!jj_rescan) trace_call("constructdecl(LOOKING AHEAD...)");
     if (jj_scan_token(CONSTRUCTOR)) { if (!jj_rescan) trace_return("constructdecl(LOOKAHEAD FAILED)"); return true; }
@@ -1262,51 +1206,60 @@ RecoverySet f = First.classlist.union(g);
     { if (!jj_rescan) trace_return("constructdecl(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3_5() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_25() {
-    if (!jj_rescan) trace_call("methodbody(LOOKING AHEAD...)");
-    if (jj_scan_token(LPAREN)) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
-    if (jj_3R_28()) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
-    if (jj_scan_token(RPAREN)) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
-    { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3R_15() {
-    if (!jj_rescan) trace_call("classlist(LOOKING AHEAD...)");
-    if (jj_3R_19()) { if (!jj_rescan) trace_return("classlist(LOOKAHEAD FAILED)"); return true; }
-    { if (!jj_rescan) trace_return("classlist(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3R_24() {
-    if (jj_3R_27()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    if (jj_scan_token(LBRACKET)) return true;
-    if (jj_scan_token(RBRACKET)) return true;
-    return false;
-  }
-
-  private boolean jj_3_6() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
+  private boolean jj_3R_38() {
+    if (!jj_rescan) trace_call("factor(LOOKING AHEAD...)");
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(27)) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(60)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(55)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(54)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(62)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(59)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(65)) {
+    jj_scanpos = xsp;
+    if (jj_3R_39()) {
+    jj_scanpos = xsp;
+    if (jj_3R_40()) { if (!jj_rescan) trace_return("factor(LOOKAHEAD FAILED)"); return true; }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    { if (!jj_rescan) trace_return("factor(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
   private boolean jj_3R_23() {
     if (jj_scan_token(COMMA)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  private boolean jj_3R_22() {
-    if (jj_3R_27()) return true;
+  private boolean jj_3R_37() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(19)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(20)) return true;
+    }
     return false;
+  }
+
+  private boolean jj_3R_36() {
+    if (!jj_rescan) trace_call("unaryexpr(LOOKING AHEAD...)");
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_37()) jj_scanpos = xsp;
+    if (jj_3R_38()) { if (!jj_rescan) trace_return("unaryexpr(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("unaryexpr(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
   private boolean jj_3R_16() {
@@ -1329,9 +1282,123 @@ RecoverySet f = First.classlist.union(g);
     { if (!jj_rescan) trace_return("vardecl(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
+  private boolean jj_3R_35() {
+    if (!jj_rescan) trace_call("term(LOOKING AHEAD...)");
+    if (jj_3R_36()) { if (!jj_rescan) trace_return("term(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("term(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3_6() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
   private boolean jj_3_3() {
     if (jj_3R_17()) return true;
     return false;
+  }
+
+  private boolean jj_3_2() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_34() {
+    if (!jj_rescan) trace_call("numexpr(LOOKING AHEAD...)");
+    if (jj_3R_35()) { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_29() {
+    if (jj_3R_20()) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3_7() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_33() {
+    if (!jj_rescan) trace_call("expression(LOOKING AHEAD...)");
+    if (jj_3R_34()) { if (!jj_rescan) trace_return("expression(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("expression(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_28() {
+    if (!jj_rescan) trace_call("paramlist(LOOKING AHEAD...)");
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_29()) jj_scanpos = xsp;
+    { if (!jj_rescan) trace_return("paramlist(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_19() {
+    if (!jj_rescan) trace_call("classdecl(LOOKING AHEAD...)");
+    if (jj_scan_token(CLASS)) { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD FAILED)"); return true; }
+    if (jj_scan_token(IDENTIFIER)) { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("classdecl(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_32() {
+    if (!jj_rescan) trace_call("alocexpression(LOOKING AHEAD...)");
+    if (jj_scan_token(NEW)) { if (!jj_rescan) trace_return("alocexpression(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("alocexpression(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_31() {
+    if (jj_3R_33()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (!jj_rescan) trace_call("classlist(LOOKING AHEAD...)");
+    if (jj_3R_19()) { if (!jj_rescan) trace_return("classlist(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("classlist(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3_5() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_25() {
+    if (!jj_rescan) trace_call("methodbody(LOOKING AHEAD...)");
+    if (jj_scan_token(LPAREN)) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
+    if (jj_3R_28()) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
+    if (jj_scan_token(RPAREN)) { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("methodbody(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_24() {
+    if (jj_3R_27()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    if (jj_scan_token(LBRACKET)) return true;
+    if (jj_scan_token(RBRACKET)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_22() {
+    if (jj_3R_27()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_41() {
+    if (!jj_rescan) trace_call("lvalue(LOOKING AHEAD...)");
+    if (jj_scan_token(IDENTIFIER)) { if (!jj_rescan) trace_return("lvalue(LOOKAHEAD FAILED)"); return true; }
+    { if (!jj_rescan) trace_return("lvalue(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
   private boolean jj_3R_18() {
@@ -1347,27 +1414,21 @@ RecoverySet f = First.classlist.union(g);
     { if (!jj_rescan) trace_return("methoddecl(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
+  private boolean jj_3R_30() {
+    if (jj_3R_32()) return true;
     return false;
   }
 
   private boolean jj_3R_27() {
     if (!jj_rescan) trace_call("assignment(LOOKING AHEAD...)");
     if (jj_scan_token(ASSIGN)) { if (!jj_rescan) trace_return("assignment(LOOKAHEAD FAILED)"); return true; }
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_30()) {
+    jj_scanpos = xsp;
+    if (jj_3R_31()) { if (!jj_rescan) trace_return("assignment(LOOKAHEAD FAILED)"); return true; }
+    }
     { if (!jj_rescan) trace_return("assignment(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3_7() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_4() {
-    if (jj_3R_18()) return true;
-    return false;
   }
 
   private boolean jj_3R_20() {
@@ -1393,13 +1454,24 @@ RecoverySet f = First.classlist.union(g);
     { if (!jj_rescan) trace_return("types(LOOKAHEAD SUCCEEDED)"); return false; }
   }
 
-  private boolean jj_3R_29() {
-    if (jj_3R_20()) return true;
+  private boolean jj_3_4() {
+    if (jj_3R_18()) return true;
     return false;
   }
 
   private boolean jj_3R_21() {
     if (jj_scan_token(LBRACKET)) return true;
+    if (jj_scan_token(RBRACKET)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_40() {
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_39() {
+    if (jj_3R_41()) return true;
     return false;
   }
 

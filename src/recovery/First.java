@@ -42,6 +42,6 @@ public class First { //implementa os conjuntos first p/ alguns n.terminais
         statlist.add(new Integer(FunConstants.FOR));
         statlist.add(new Integer(FunConstants.LBRACE));
         statlist.add(new Integer(FunConstants.BREAK));
-        statlist.add(new Integer(FunConstants.SEMICOLON));
+        statlist.add(new Integer(FunConstants.SEMICOLON));       
     }
 }
