@@ -447,15 +447,18 @@ catch (ParseException e)
 }
 
 //SIMPLIFICACAOO DE CODIGO
-void types(RecoverySet g) throws ParseEOFException :
+Token types(RecoverySet g) throws ParseEOFException :
 {
+  Token t1 = null;
 }
 {
  try{
-  ( <INT> | <FLOAT> | <CHAR> | <STRING> | <IDENTIFIER> | <BOOLEAN>)
+  ( t1 = <INT> | t1 =  <FLOAT> | t1 = <CHAR> | t1 = <STRING> | t1 = <IDENTIFIER> | t1 = <BOOLEAN>)
+  {return t1;}
   }catch (ParseException e)
 {
    consumeUntil(g, e, "types");
+   return t1;
 }
 }
 
@@ -589,9 +592,7 @@ AtribNode atribstat(RecoverySet g) throws ParseEOFException :
 }
 {
   try {
-    e1 = lvalue(f1) t1 = <ASSIGN>
-    // mudei de assignement(g) para o que era antes, verificar se ficou certo
-    (e2 = alocexpression(g) | e2 = expression(g))
+   e1 = lvalue(f1) t1 = assignment(g)
     { return new AtribNode(t1, e1, e2); }
   }	
   catch (ParseException e) {
@@ -715,11 +716,14 @@ ForNode forstat(RecoverySet g) throws ParseEOFException :
   }
 }
 
-void assignment(RecoverySet g) throws ParseEOFException :
+Token assignment(RecoverySet g) throws ParseEOFException :
 {
+Token t = null;
+ExpreNode e1 = null, e2 = null;
 }
 {
-    <ASSIGN> (alocexpression(g) | expression(g))
+    t = <ASSIGN> (e1 = alocexpression(g) | e2 = expression(g))
+    { return t; }
 }
 
 ListNode statlist(RecoverySet g) throws ParseEOFException :
