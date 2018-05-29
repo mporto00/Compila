@@ -2,6 +2,8 @@
 package parser;
 import java.io.*;
 import recovery.*;
+                   // importa as classes de recuperacao	de erros do AS
+import syntacticTree.*;
 
 /** Token Manager. */
 public class FunTokenManager implements FunConstants
