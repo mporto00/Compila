@@ -1,0 +1,18 @@
+// programa nao aceito 19 - atribuir uma variavel a nada; atribuir um metodo a uma variavel;
+
+
+class programaNaoAceito19 {
+
+	string varString = ;
+	
+					
+	int metodoVar() {
+		if ((varString / "nao entra") or not((12/123)*54)) {
+			read varString;
+		}
+	}
+	int var = int metodoAtribuido () {
+					if( true) {
+						return;
+	}
+}

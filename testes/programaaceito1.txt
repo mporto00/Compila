@@ -1,0 +1,58 @@
+//programaaceito1
+
+class programaAceito {
+
+	int variavelInt;
+	int variavelInt2 = 8;
+	boolean variavelBoolean = true;
+	float variavelFloat = 5;
+	char variavelChar = 'a';
+
+    constructor() {
+    	variavelBoolean = false;
+    }
+    
+	float metodoTeste ( float varivavelFloat2, int varInt =2) {
+		for (cont=0; cont < 10; cont = (cont + 1)) {
+				read variavelBoolean;
+		}
+		
+		if (((a >= 33) and ((b <= 321+4) or (true))) or (not((c<=322*22/2) xor (a>34)))) {
+			return variavelChar; 
+		}
+
+		if((("ufsc" == "x") or ("abc"+ "a")) and ('a' > 'b')) {
+		 	print("Isso foi printado!");
+		 }
+		return variavelChar;
+	}
+		
+    constructor() {
+    	variavelInt = 5;
+    }
+
+	boolean calcIf(){
+        if((variavelFloat > 10) and (variavelBoolean == 50)){
+            int variavel3 = 5;
+        }
+
+        if ('a' > 2) {
+            if ((1+2) > 4) {
+                print("1+2 2 maior que 4");    
+            } else {
+                print("1+2 NAO e maior que 4");    
+            }
+        } else {
+                print("Nao verdadeiro!");    
+        }
+    }
+}
+
+class segundaClasse {
+	   	
+	string programa = new programaAceito();
+	
+	boolean metodoChamaClasse () {
+		programa.metodoTeste() = 2;
+	}
+}

@@ -1,0 +1,33 @@
+//programaaceito4
+
+class programaAceito4 {
+
+	char variavelChar = 'a';
+    int varNova = new var1();
+    float varFloat=123.123;
+   int varFloat = varNova[123];
+    
+    constructor() {
+    	super(variavelChar);
+    }
+    
+	float metodo1 ( char varivavel2 = 'b' ) {
+	
+		variavelOp = (('a' xor "string") or (not(20.20 <= true)));
+		
+		for (cont=0; cont < 10; cont = (cont / 1)) {
+			for (i=0; i <= 100; i = (i * 2)) {
+				print(variavelChar);
+			}
+		}
+		
+		
+		if( ("string" xor true) and (20.12 >= 'b') ) {
+		 	break;
+		 }else {
+		 	int var = objeto.metodo();
+		 	return false;
+		 }
+	}
+}
+

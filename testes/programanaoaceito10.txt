@@ -1,0 +1,11 @@
+// programa nao aceito 10 - variavel int tendo 'assign' a outra int; metodo sem chave final
+
+
+class programaNaoAceito10 {
+
+	int varInt = int 6;
+
+	int metodoNuncaChegara () {
+		read varInt;
+	
+}

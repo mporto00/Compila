@@ -1,0 +1,17 @@
+// programa nao aceito 14 - read errado dentro do construtor; return dentro da inicializacao do IF;
+
+
+class programaNaoAceito14 extends classeExtendida {
+
+	int varInt = 244;
+
+	constructor (int a =3 ) {
+		read(varInt);
+	}
+	
+	int metodoInt () {
+		if ( return null ) {
+			return false;
+		}
+	}
+}

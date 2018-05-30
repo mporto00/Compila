@@ -1,0 +1,16 @@
+// programa nao aceito 18 - parametro de funcao sem tipo; metodo sem tipo.
+
+
+class programaNaoAceito18 {
+
+	string varString= "sou uma string";
+	int var = objeto.metodo();
+	
+	int metodo ( varSemTipo ) {
+		read varInt;
+	}
+	
+	metodoSemTipo() {
+		print("Eu nao tenho tipo");
+	}
+}

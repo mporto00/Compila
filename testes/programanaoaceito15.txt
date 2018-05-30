@@ -1,0 +1,15 @@
+// programa nao aceito 15 - arglist de super sem uma virgula; metodo sem tipo;
+
+
+class programaNaoAceito15  {
+
+	boolean varBool = 3+8;
+	
+	constructor () {
+		super(var1, var2, var3 var4);
+	}
+	
+	metodo() {
+		return;
+	}
+}

@@ -1,0 +1,17 @@
+// programa nao aceito 7 - dois numeros um do lado do outro mas sem nenhum operador entre eles; inicializacao de variavel dentro de super;
+
+
+class programaNaoAceito7 extends classeExtendida {
+
+	int varInt = 244;
+
+	constructor () {
+		super(int varInt = 3);
+	}
+	
+	int metodoInt () {
+		if ( (2>3) or (2 6) ) {
+			return false;
+		}
+	}
+}

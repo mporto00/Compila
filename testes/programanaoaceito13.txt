@@ -1,0 +1,17 @@
+// programa nao aceito 13 - operador NOT sendo usado erroneamente; for sendo inicializado errado; return sendo usado errado;
+
+
+class programaNaoAceito9  {
+
+	char varNova = new varChar(objeto);
+
+	int metodoPrincipal13 () {
+		if ( 1003 not varBool ) {
+			return null;
+		}
+		
+		for ( int i; i> index; i++) {
+			return metodo();
+		}
+	}
+}

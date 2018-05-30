@@ -1,0 +1,21 @@
+// programa nao aceito 3 - um 'or' depois 'xor' sem nada no meio; variavel atribuida a nada dentro de parametro de construtor;
+ 
+
+class programaNaoAceitos{
+
+	boolean var = true;
+
+	char metodoOperadores () {
+		if (var) {
+			if ('a' or xor 12.4) {
+				print("Nao chega aqui");
+			}
+		} else {
+			return null;
+		}
+	}
+
+	constructor (string varFloat = ) {
+		varint = 9;
+	}
+}

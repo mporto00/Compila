@@ -1,0 +1,16 @@
+// programa nao aceito 20 - erro em instancia do new; variavel instancializada fora da classe;
+
+
+class programaNaoAceito20  {
+
+	char varNova = new var+2;
+
+	int metodoPrincipal13 () {
+		for (index = 0 ; 1003 < index; index = index + 1 ) {
+			return null;
+		}
+	}
+	
+	boolean varDentro = true;
+}
+boolean varFora = true;

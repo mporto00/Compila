@@ -1,0 +1,12 @@
+// programa nao aceito 5 - classe extende a nada;
+
+class programaNaoAceito5 extends {
+
+	int varChar = 2;
+
+	char metodo () {
+		if (varChar = 2) {
+			print("Nunca chega aqui");
+		}
+	}
+}

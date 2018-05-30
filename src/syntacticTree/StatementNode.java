@@ -1,6 +1,6 @@
 package syntacticTree;
 
-import parser.Token;
+import parser.*;
 
 abstract public class StatementNode extends GeneralNode {
 	
