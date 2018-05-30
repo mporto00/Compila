@@ -20,9 +20,11 @@ public class Fun {
 	public static void main(String args []) throws ParseException {
 	    boolean debug_as = false;
 	    boolean debug_recovery = false;
+	    boolean print_tree = false;
+	    
 	    boolean debug = false;
 	    Fun parser = new Fun(System.in);
-	    String filename = "programaaceito4.txt";
+	    String filename = "aceitos.txt";
 	    int i;
 	    boolean ms = false;
 	    
@@ -32,7 +34,10 @@ public class Fun {
 			else
 			if (args[i].equals("-debug_recovery")) 
 				debug_recovery = true;
-			 else {
+			else
+			if (args[i].equals("-print_tree")) 
+				print_tree = true;
+			else {
 				System.out.println("Metodo de uso e: Java LangFun [-debug_AS]" + "[-debug_recovery] inputfile");
 				System.exit(0);
 			}
@@ -71,6 +76,13 @@ public class Fun {
 	           System.out.println(parser.token_source.foundLexError() + " erros lexico encontrados");
 	           System.out.println(parser.contParseError + " erros sintaticos encontrados");
 	       }
+
+	       // verifica se pode imprimir a arvore sintatica
+	        //if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
+			if(true) {
+                PrintTree prt = new PrintTree();
+                prt.printRoot(root);     // chama método para imprimir árvore
+            }
 	} // main
 	
 static public String im(int x) {
@@ -305,7 +317,7 @@ ListNode program() throws ParseEOFException :
 	ListNode l = null, d = null;
 }
 {
-  <EOF>
+  <EOF>	{return null;}
 |
 (  	l = classlist(g)
   	try { 
@@ -414,13 +426,13 @@ VarDeclNode vardecl(RecoverySet g) throws ParseEOFException :
 }
 {
  try { 
-  t1 = types(f) t2 = <IDENTIFIER> ( <LBRACKET> <RBRACKET> { k++; })*
+  (    t1 = types(f) t2 = <IDENTIFIER> ( <LBRACKET> <RBRACKET> { k++; })*
 	{ l = new ListNode(new VarNode(t2, k)); }
   (LOOKAHEAD(1) assignment(g))?
   (<COMMA> { k = 0; } t2 = <IDENTIFIER> ( <LBRACKET> <RBRACKET> { k++; })*
 	{ l.add(new VarNode(t2, k)); }
-  )* 
-  (LOOKAHEAD(1) assignment(g))?
+  )*	(LOOKAHEAD(1) assignment(g))?
+  )
   { return new VarDeclNode(t1, l); }
 }
 catch (ParseException e) {
@@ -753,12 +765,8 @@ ExpreNode lvalue(RecoverySet g) throws ParseEOFException :
             t1 = <LBRACKET> e2 = expression(null) <RBRACKET>
 				{ e1 = new IndexNode(t1, e1, e2); }
     |
-			LOOKAHEAD(3)
-            t1 = <DOT> t2 = <IDENTIFIER> <LPAREN> l = arglist(null) <RPAREN>
-             	{ e1 = new CallNode(t1, e1, t2, l); }
-    |
-    		t1 = <DOT> t2 = <IDENTIFIER>
-    			{ e1 = new DotNode(t1, e1, t2); }
+    		t1 = <DOT> t2 = <IDENTIFIER> [<LPAREN> l = arglist(null) <RPAREN>]
+      			{ e1 = new CallNode(t1, e1, t2, l); }
    )*
    { return e1; }
   	}
@@ -809,6 +817,7 @@ ExpreNode expression(RecoverySet g) throws ParseEOFException :
     [
     ( t = <LT> | t = <GT> | t = <LE> | t = <GE> | t = <EQ> | t = <NEQ> | t = <AND> | t = <OR> | t = <XOR>)
     e2 = numexpr()
+    { e1 = new RelationalNode(t, e1, e2); }
     ]
     { return e1; }
   }
