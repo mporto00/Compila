@@ -1,0 +1,42 @@
+//programaaceito2s
+
+class programaAceito2 extends classeExtendida {
+	
+	string genero = "genero";
+
+  	void operadores( string varStri, int var= 2, float varFloat){
+  	
+  		int novaVar = 3;
+  		
+        if((genero == "homem") or (genero =="mulher"))
+            print("Dois generos");
+        else
+            print("Outros");
+
+
+        boolean isHomem = true;
+        if(not(isHomem)){
+        	boolean verdadeiro= true;
+            print("Mulher");
+        } else{
+            print("");
+            print("");
+            print("");
+        }
+    
+        if(isHomem xor (genero == "homem")){
+            print("Definitivamente é homem");
+        }
+
+        if (2 < (1+2)) {
+            print("2 é menor q 1+2");    
+        }
+    }
+   
+    constructor() {
+    	boolean variavelBoolean = false;
+    }
+ 
+}
+
+

@@ -1,0 +1,14 @@
+// programa nao aceito 17 - declaracao dentro do if; return sem ponto e virgula; parametro de funcao sem virgula;
+
+class programaNaoAceito17 {
+
+	int metodoNuncaChegara (int var1, int varInt) {
+		read varInt;
+		if (char varChar =  'd'){ 
+			return null
+		}
+	}
+	float metodoNuncaChegara2 (int var1, int varInt, float var3 = 3 string var5 ) {
+		print false;
+	}
+}

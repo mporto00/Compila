@@ -1,0 +1,26 @@
+// programa nao aceito 9 - declarar uma classe dentro de outra classe; um chaves a mais
+
+
+class programaNaoAceito9  {
+
+	boolean varBool = true;
+	int varNova = new var1();
+	
+	int metodoPrincipal () {
+		if ( varBool ) {
+			return true;
+		}
+	}
+
+	class programaNaoAceito9  {
+		constructor () {
+			var =2;
+		}
+		
+		int metodoPrincipal () {
+			if ( not (varBool) ) {
+				return false;
+			}
+		}
+	}
+}

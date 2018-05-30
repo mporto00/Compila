@@ -1,0 +1,21 @@
+// programa nao aceito 12 - atribuir uma classe a uma variavel
+
+
+class programaNaoAceito12 {
+
+	string varString = "sou uma string";
+	int var = class objetoAtribuido () {
+					constructor () {
+						var a = 'a';
+					}
+	};
+	
+	int metodoVar() {
+		if ((varString == "nao entra") or ((12/123)*54)) {
+			read varString;
+		}
+		
+	}
+
+
+}

@@ -1,6 +1,6 @@
 package syntacticTree;
 
-import parser.Token;
+import parser.*;
 
 public class AtribNode extends StatementNode {
 	public ExpreNode expr1, expr2;

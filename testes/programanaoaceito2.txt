@@ -1,0 +1,19 @@
+// programa nao aceito 2 - for sem segundo ponto e virgula; parametro de construtor feito de forma errada;
+
+
+class programaNaoAceito2 {
+
+	float varfloat = 6.2;
+
+	char calcFor () {
+		for (index = 0; index <= 100 index= (index+1)) {
+			if ('a' >= 20.30) {
+				return false;
+			}
+		}
+	}
+		
+	constructor (varInt) {
+		varint = 9;
+	}
+}

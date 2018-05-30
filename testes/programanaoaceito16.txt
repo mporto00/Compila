@@ -1,0 +1,17 @@
+// programa nao aceito 16 - declarar variavel dentro de parametro de print; erro em operacao logico no parametro do IF; dois and's um ao lado do outro
+
+class programaNaoAceito16  {
+
+	float varFloat = 2.3;
+	int varNova = 23;
+	
+	int metodoPrincipal (boolean varBool = true) {
+		if( 3 + % 5  ) {
+			return false;
+		}
+		if ( varBool and and 3 -2 ) {
+			print( boolean varTrue = false);
+		}
+
+	}
+}

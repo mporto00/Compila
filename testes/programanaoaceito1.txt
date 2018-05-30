@@ -1,0 +1,17 @@
+// programa nao aceito 1 - abre parentêses mas nao fecha; sem ponto e virgula; classe nao fecha chaves;
+
+
+class programaNaoAceito {
+
+	int varint = 6;
+	
+	constructor () {
+		varint = 9;
+	}
+	
+	boolean metodoTeste () {
+		if ('a' >= 20.30 {
+			return false
+		}
+	}
+	int varInt = int 6;

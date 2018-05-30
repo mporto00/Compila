@@ -1,0 +1,19 @@
+// programa nao aceito 4 - construtor dentro de um metodo; e operador logico usado de forma erronea; if fora de método;
+
+class programaNaoAceito4 {
+
+	int varNula = null;
+
+	string metodoComConstruct () {
+		if (varNula) {
+		int varInt = 3 + ;
+			constructor () {
+				varnula = 2;
+			}
+		}
+	}
+	
+	if ('a' + 'b') {
+		
+	}
+}

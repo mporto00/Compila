@@ -24,7 +24,7 @@ public class Fun {
 	    
 	    boolean debug = false;
 	    Fun parser = new Fun(System.in);
-	    String filename = "aceitos.txt";
+	    String filename = "./testes/programaaceito4.txt";
 	    int i;
 	    boolean ms = false;
 	    
@@ -96,9 +96,9 @@ static public String im(int x) {
     return s;
 }
 
-boolean eof;	// variavel que indica se o EOF foi alcan�ado
-// o metodo abaixo consome tokens ate alcan�ar um que perten�a
-// ao conjunto de sincroniza�ao
+boolean eof;	// variavel que indica se o EOF foi alcancado
+// o metodo abaixo consome tokens ate alcancar um que pertenca
+// ao conjunto de sincronizacao
 
 void consumeUntil(RecoverySet g,
                  ParseException e,
@@ -107,16 +107,16 @@ void consumeUntil(RecoverySet g,
 		{
 		Token tok;
 
-		   if ( debug_recovery) { // informa��o sobre a recupera��o 
+		   if ( debug_recovery) { // informacao sobre a recuperacao 
 		       System.out.println();
 		       System.out.println("*** " + met + " ***");
 		       System.out.println("     Syncronizing Set: " + g);
 		   }
 
-		   if (g == null) throw e; // se o conjunto � null, propaga a exce��o
+		   if (g == null) throw e; // se o conjunto e null, propaga a excecao
 
 		   tok = getToken(1); // pega token corrente
-		   while ( ! eof ) { // se n�o chegou ao fim do arquivo
+		   while ( ! eof ) { // se nao chegou ao fim do arquivo
 			if ( g.contains(tok.kind ) ) { //achou um token no conjunto
 			     if ( debug_recovery)
 			       System.out.println("     Found syncronizing token: " + im(tok.kind));
@@ -124,7 +124,7 @@ void consumeUntil(RecoverySet g,
 			}
 			if (debug_recovery)
 			     System.out.println("     Ignoring token: " + im(tok.kind));
-			getNextToken();     // pega pr�ximo token       
+			getNextToken();     // pega proximo token       
 			tok = getToken(1);
 			if (tok.kind == EOF && ! g.contains(EOF) ) // fim da entrada?   
 			    eof = true;
@@ -157,7 +157,7 @@ SKIP :
 | "\f"
 }
 
-//coment�rio de bloco
+//comentario de bloco
 SKIP : 
 { 
  "/*" : multilinecomment
@@ -169,7 +169,7 @@ SKIP :
 | <~[]>
 }
 
-//coment�rio de linha
+//comentario de linha
 SKIP : 
 { 
  "//" : singlelinecomment
@@ -253,7 +253,6 @@ TOKEN : /* CONSTANTES NUMERICAS */
 }
 
 TOKEN : {
-  
   <#LETTER: (["a"-"z","A"-"Z"])> 
 | <CONSTANT : (< DIGIT >)+ >
 | <boolean_constant: <TRUE> | <FALSE>  >
@@ -378,7 +377,7 @@ ClassBodyNode classbody(RecoverySet g) throws ParseEOFException :
 {
   try { 
     t = <LBRACE>
-      [ c = classlist(f5)]
+      [ LOOKAHEAD(4) c = classlist(f5)]
       (
        LOOKAHEAD(3) vd = vardecl(f2) <SEMICOLON>
 		{ 	if (v == null)
@@ -419,7 +418,7 @@ ClassBodyNode classbody(RecoverySet g) throws ParseEOFException :
 
 VarDeclNode vardecl(RecoverySet g) throws ParseEOFException :
 {
-  Token t1 = null, t2;
+  Token t1 = null, t2 = null;
   int k = 0;
   ListNode l = null;
   RecoverySet f = new RecoverySet(IDENTIFIER).union(g);
@@ -567,9 +566,9 @@ StatementNode statement(RecoverySet g) throws ParseEOFException :
     LOOKAHEAD(4)
     s = vardecl(f1) <SEMICOLON>
 |
-	LOOKAHEAD(1)
     s = atribstat(f1) <SEMICOLON> 
 |
+	LOOKAHEAD(3)
     s = printstat(f1) <SEMICOLON>
 |
     s = readstat(f1) <SEMICOLON>
@@ -604,7 +603,8 @@ AtribNode atribstat(RecoverySet g) throws ParseEOFException :
 }
 {
   try {
-   e1 = lvalue(f1) t1 = assignment(g)
+   e1 = lvalue(f1) t1 = <ASSIGN>
+   ( e2 = alocexpression(g) | e2 = expression(g))
     { return new AtribNode(t1, e1, e2); }
   }	
   catch (ParseException e) {
@@ -789,11 +789,11 @@ ExpreNode alocexpression(RecoverySet g) throws ParseEOFException :
 {
     t1 = <NEW>
     	( 
-             LOOKAHEAD(2) t2 = <IDENTIFIER> <LPAREN> l = arglist(f1) <RPAREN>
+             LOOKAHEAD(2) (t2 = <IDENTIFIER> <LPAREN> l = arglist(f1) <RPAREN>)
 				{ e1 = new NewObjectNode(t1, t2, l); }
          | 
-             t2 = types(g)
-             (<LBRACKET> e2 = expression(f2) <RBRACKET>
+             (t2 = types(g))
+             (<LBRACKET> e2 = numexpr(f2) <RBRACKET>
 					{
 						if ( l == null )
 							l = new ListNode(e2);
@@ -808,38 +808,50 @@ ExpreNode alocexpression(RecoverySet g) throws ParseEOFException :
 
 ExpreNode expression(RecoverySet g) throws ParseEOFException :
 {
-  ExpreNode e1 = null, e2 = null;
-  Token t = null;
+  Token t = null, t1 = null, t2 = null;
+  ExpreNode e = null, e1 = null, e2 = null, e3 = null;
 }
 {
-  try { 
-    e1 = numexpr()
-    [
-    ( t = <LT> | t = <GT> | t = <LE> | t = <GE> | t = <EQ> | t = <NEQ> | t = <AND> | t = <OR> | t = <XOR>)
-    e2 = numexpr()
-    { e1 = new RelationalNode(t, e1, e2); }
-    ]
-    { return e1; }
-  }
-  catch (ParseException e) {
-		consumeUntil(g, e, "expression");
-		return new RelationalNode(t, e1, e2);
+  try {
+     [ LOOKAHEAD(2) t = <NOT>] e1 = numexpr(g)
+    [( t1 = <LT> | t1 = <GT> | t1 = <LE> | t1 = <GE> | t1 = <EQ> | t1 = <NEQ>) e2 = numexpr(g)]
+    [( t2 = <AND> | t2 = <OR> | t2 = <XOR> ) e3 = expression(g)]
+    {
+      if(t == null) {
+        if(t1 != null) {
+          t = t1;
+        } else if(t2 != null) {
+          t = t2;
+        }
+      }
+      if(t == null) {
+        e = e1;
+      } else {
+        e = new IfExpressionNode(t, e1, e2, e3);
+      }
+      return e;
+    }
+  } catch(ParseException ex) {
+    consumeUntil(g, ex, "expression");
+    { return e; }
   }
 }
 
-ExpreNode numexpr() throws ParseEOFException :
+ExpreNode numexpr(RecoverySet g) throws ParseEOFException :
 {
-  ExpreNode e1 = null, e2;
-  Token t;
+ExpreNode e1 = null, e2;
+Token t;
 }
 {
-    e1 = term()
-    (
-      	(t = <PLUS> | t = <MINUS>)
-    	e2 = term()
-    		{ e1 = new AddNode(t, e1, e2); }
-    )*
-    { return e1; } 
+    try {
+      e1 = term() ((t = <PLUS> | t = <MINUS>) e2 = term()
+      { e1 = new AddNode(t, e1, e2); }
+      )*
+      {return e1; }
+    }catch(ParseException ex){
+      consumeUntil(g, ex, "numexpr");
+      { return e1; }
+    }  
 }
 
 ExpreNode term() throws ParseEOFException :
@@ -888,7 +900,7 @@ ExpreNode factor() throws ParseEOFException :
        |
        t = <null_constant>	{ e = new NullConstNode(t); }
        |
-       lvalue(null)
+       e = lvalue(null)
        |
        <LPAREN> e = expression(null) <RPAREN>
     )

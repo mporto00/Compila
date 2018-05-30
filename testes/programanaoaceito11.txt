@@ -1,0 +1,18 @@
+// programa nao aceito 11 - print com inicializacao de variavel dentro do parametro; um metodo dentro do parâmetro de outro método
+
+
+class programaNaoAceito11 {
+
+	string varString= "sou uma string";
+	int var = objeto.metodo();
+	
+	int metodo1 () {
+		print( int var = 3);
+	}
+
+	int metodo ( float metodoDentro () {
+		return false;
+	}) {
+		read varInt;
+	}
+}

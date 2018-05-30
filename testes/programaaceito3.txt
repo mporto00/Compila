@@ -1,0 +1,39 @@
+//programaaceito3
+
+class programaAceito3 extends programaAceito2{
+
+	int var1;
+	int vari2 = 80;
+	boolean var3 = true;
+	float var4 = 50.50;
+	char var5 = 'c';
+    		
+    constructor() {
+    	super(var1,var3,var5);
+    }
+    
+	float metodoTeste () {
+		boolean varBool = false;
+		return "Retornar essa string";
+	}
+		
+    constructor() {
+    	variavelInt = 5;
+    }
+	
+	boolean varBool = false;
+	
+	boolean calc(int a = b){
+		
+        if( (5.25 > 5) and ('n' == 50)){
+            int variavel3 = 5;
+        }
+		operadores = (not (a and (b > c)));
+        if ((('a' or 2) or var4) and "string") {
+        	if (operadores) { 
+        		return 'a';
+        	}
+  		}
+    }
+}
+
