@@ -1,4 +1,4 @@
-//programaaceito2s
+//programaaceito2
 
 class programaAceito2 extends classeExtendida {
 	
@@ -25,11 +25,11 @@ class programaAceito2 extends classeExtendida {
         }
     
         if(isHomem xor (genero == "homem")){
-            print("Definitivamente é homem");
+            print("Definitivamente e homem");
         }
 
         if (2 < (1+2)) {
-            print("2 é menor q 1+2");    
+            print("2 e menor q 1+2");    
         }
     }
    

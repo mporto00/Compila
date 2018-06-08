@@ -1,0 +1,11 @@
+//programaaceito5
+
+class classePrincipal {
+	   	
+	int answer = 0;
+	
+	int metodoSoma (int val1 = 2, int val2 = 3) {
+		answer = val1 + val2;
+		return answer; 
+	}
+}

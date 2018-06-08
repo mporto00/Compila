@@ -1,0 +1,12 @@
+//programaaceito6
+
+class tabuleiro {
+	   	
+	int vetorx = 8;
+	int vetory = 8;
+	int tamanhoTabuleiro = 0;
+	
+	constructor () {
+		tamanhoTabuleiro = vetorx*vetory;
+	}
+}
