@@ -77,8 +77,8 @@ public class Fun {
 	           System.out.println(parser.contParseError + " erros sintaticos encontrados");
 	       }
 
-	       // verifica se pode imprimir a arvore sintatica
-	        //if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
+	        verifica se pode imprimir a arvore sintatica
+	        if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
 			if(true) {
                 PrintTree prt = new PrintTree();
                 prt.printRoot(root);     // chama método para imprimir árvore
