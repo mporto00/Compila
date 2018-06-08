@@ -18,7 +18,7 @@ public class Fun implements FunConstants {
 
             boolean debug = false;
             Fun parser = new Fun(System.in);
-            String filename = "./testes/programaaceito4.txt";
+            String filename = "./testes/programaaceito7.txt";
             int i;
             boolean ms = false;
 
@@ -71,8 +71,8 @@ public class Fun implements FunConstants {
                    System.out.println(parser.contParseError + " erros sintaticos encontrados");
                }
 
-               // verifica se pode imprimir a arvore sintatica
-                //if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
+                // verifica se pode imprimir a arvore sintatica
+                // if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
                         if(true) {
                 PrintTree prt = new PrintTree();
                 prt.printRoot(root);     // chama método para imprimir árvore

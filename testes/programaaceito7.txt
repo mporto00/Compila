@@ -1,0 +1,13 @@
+//programaaceito7
+
+class principalClass {
+	
+	float metodoPrincipal ( char varChar = 'z' ) {
+			
+		for (cont=0; cont < 10; cont = (cont + 1)) {
+			for (i=0; i <= 100; i = (i * 10)) {
+				return varChar;
+			}
+		}
+	}
+}
