@@ -4,6 +4,7 @@ package parser;
 import java.io.*;
 import recovery.*; // importa as classes de recuperacao	de erros do AS
 import syntacticTree.*;
+import semanalysis.*;
 
 public class Fun implements FunConstants {
    int contParseError = 0; // contador de erros sintaticos
@@ -18,7 +19,7 @@ public class Fun implements FunConstants {
 
             boolean debug = false;
             Fun parser = new Fun(System.in);
-            String filename = "./testes/programaaceito7.txt";
+            String filename = "./testes/programanaoaceito1.txt";
             int i;
             boolean ms = false;
 
@@ -70,13 +71,21 @@ public class Fun implements FunConstants {
                    System.out.println(parser.token_source.foundLexError() + " erros lexico encontrados");
                    System.out.println(parser.contParseError + " erros sintaticos encontrados");
                }
-
-                // verifica se pode imprimir a arvore sintatica
-                // if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
+                        ClassCheck tc = new ClassCheck();
+            try{
+              tc.ClassCheckRoot(root);
+              System.out.println("0 erros semanticos encontrados");
+            } catch (SemanticException e) {
+            System.out.println(e.getMessage());
+                }
+               // verifica se pode imprimir a arvore sintatica
+                if ( parser.token_source.foundLexError() + parser.contParseError == 0) {
                         if(true) {
                 PrintTree prt = new PrintTree();
                 prt.printRoot(root);     // chama método para imprimir árvore
-            }
+            } }
+
+
         } // main
 
 static public String im(int x) {
@@ -1511,51 +1520,6 @@ Token t;
     finally { jj_save(9, xla); }
   }
 
-  private boolean jj_3R_38() {
-    if (jj_3R_42()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_33() {
-    if (!jj_rescan) trace_call("numexpr(LOOKING AHEAD...)");
-    if (jj_3R_40()) { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD FAILED)"); return true; }
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_41()) { jj_scanpos = xsp; break; }
-    }
-    { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3R_21() {
-    if (!jj_rescan) trace_call("types(LOOKING AHEAD...)");
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(49)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(51)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(53)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(50)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(61)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(52)) { if (!jj_rescan) trace_return("types(LOOKAHEAD FAILED)"); return true; }
-    }
-    }
-    }
-    }
-    }
-    { if (!jj_rescan) trace_return("types(LOOKAHEAD SUCCEEDED)"); return false; }
-  }
-
-  private boolean jj_3R_22() {
-    if (jj_scan_token(LBRACKET)) return true;
-    if (jj_scan_token(RBRACKET)) return true;
-    return false;
-  }
-
   private boolean jj_3_1() {
     if (jj_3R_15()) return true;
     return false;
@@ -1980,6 +1944,51 @@ Token t;
     }
     if (jj_scan_token(RBRACE)) { if (!jj_rescan) trace_return("classbody(LOOKAHEAD FAILED)"); return true; }
     { if (!jj_rescan) trace_return("classbody(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_38() {
+    if (jj_3R_42()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_33() {
+    if (!jj_rescan) trace_call("numexpr(LOOKING AHEAD...)");
+    if (jj_3R_40()) { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD FAILED)"); return true; }
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_41()) { jj_scanpos = xsp; break; }
+    }
+    { if (!jj_rescan) trace_return("numexpr(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_21() {
+    if (!jj_rescan) trace_call("types(LOOKING AHEAD...)");
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(49)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(51)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(53)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(50)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(61)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(52)) { if (!jj_rescan) trace_return("types(LOOKAHEAD FAILED)"); return true; }
+    }
+    }
+    }
+    }
+    }
+    { if (!jj_rescan) trace_return("types(LOOKAHEAD SUCCEEDED)"); return false; }
+  }
+
+  private boolean jj_3R_22() {
+    if (jj_scan_token(LBRACKET)) return true;
+    if (jj_scan_token(RBRACKET)) return true;
+    return false;
   }
 
   /** Generated Token Manager. */

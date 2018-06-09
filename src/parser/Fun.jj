@@ -10,6 +10,7 @@ package parser;
 import java.io.*;
 import recovery.*; // importa as classes de recuperacao	de erros do AS
 import syntacticTree.*;
+import semanalysis.*;
 
 public class Fun {
    int contParseError = 0; // contador de erros sintaticos
@@ -24,7 +25,7 @@ public class Fun {
 	    
 	    boolean debug = false;
 	    Fun parser = new Fun(System.in);
-	    String filename = "./testes/programaaceito7.txt";
+	    String filename = "./testes/programanaoaceito1.txt";
 	    int i;
 	    boolean ms = false;
 	    
@@ -76,13 +77,21 @@ public class Fun {
 	           System.out.println(parser.token_source.foundLexError() + " erros lexico encontrados");
 	           System.out.println(parser.contParseError + " erros sintaticos encontrados");
 	       }
-
-	        // verifica se pode imprimir a arvore sintatica
-	        // if ( parser.token_source.foundLexError() + parser.contParseError == 0 && print_tree) {
+			ClassCheck tc = new ClassCheck();
+            try{
+              tc.ClassCheckRoot(root);
+              System.out.println("0 erros semanticos encontrados");
+            } catch (SemanticException e) {
+            System.out.println(e.getMessage());
+       		}
+	       // verifica se pode imprimir a arvore sintatica
+	        if ( parser.token_source.foundLexError() + parser.contParseError == 0) {
 			if(true) {
                 PrintTree prt = new PrintTree();
                 prt.printRoot(root);     // chama método para imprimir árvore
-            }
+            } }
+
+            
 	} // main
 	
 static public String im(int x) {

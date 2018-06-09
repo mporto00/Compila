@@ -1,0 +1,8 @@
+// programa nao aceito 1 - abre parentêses mas nao fecha; sem ponto e virgula; classe nao fecha chaves;
+
+
+class programaNaoAceito {
+	class programaNaoAceito {
+	
+	}
+}

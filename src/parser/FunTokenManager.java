@@ -4,6 +4,7 @@ import java.io.*;
 import recovery.*;
                    // importa as classes de recuperacao	de erros do AS
 import syntacticTree.*;
+import semanalysis.*;
 
 /** Token Manager. */
 public class FunTokenManager implements FunConstants
